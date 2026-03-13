@@ -1,0 +1,557 @@
+[
+    {
+        "id": 9,
+        "qualifiedName": "test_python_project",
+        "category": "Package",
+        "File": "test_python_project",
+        "contains": [
+            {
+                "id": 7,
+                "qualifiedName": "test_python_project.__init__",
+                "category": "Module",
+                "File": "test_python_project/__init__.py"
+            },
+            {
+                "id": 3,
+                "qualifiedName": "test_python_project.helpers",
+                "category": "Module",
+                "File": "test_python_project/helpers.py"
+            },
+            {
+                "id": 1,
+                "qualifiedName": "test_python_project.main",
+                "category": "Module",
+                "File": "test_python_project/main.py"
+            },
+            {
+                "id": 2,
+                "qualifiedName": "test_python_project.models",
+                "category": "Module",
+                "File": "test_python_project/models.py"
+            },
+            {
+                "id": 8,
+                "qualifiedName": "test_python_project.service",
+                "category": "Module",
+                "File": "test_python_project/service.py"
+            },
+            {
+                "id": 6,
+                "qualifiedName": "test_python_project.subpkg",
+                "category": "Package",
+                "File": "test_python_project/subpkg"
+            }
+        ],
+        "imports": [],
+        "imported_by": [],
+        "total_relations": 6
+    },
+    {
+        "id": 47,
+        "qualifiedName": "test_python_project.service.run",
+        "category": "Function",
+        "File": "test_python_project/service.py",
+        "calls": [
+            {
+                "id": 13,
+                "qualifiedName": "test_python_project.helpers.default_role",
+                "category": "Function",
+                "File": "test_python_project/helpers.py",
+                "location": {
+                    "startLine": 6,
+                    "startCol": 11
+                }
+            },
+            {
+                "id": 34,
+                "qualifiedName": "test_python_project.models.Employee.notify",
+                "category": "Function",
+                "File": "test_python_project/models.py",
+                "location": {
+                    "startLine": 8,
+                    "startCol": 11
+                }
+            },
+            {
+                "id": 38,
+                "qualifiedName": "test_python_project.models.make_employee",
+                "category": "Function",
+                "File": "test_python_project/models.py",
+                "location": {
+                    "startLine": 7,
+                    "startCol": 10
+                }
+            }
+        ],
+        "called_by": [
+            {
+                "id": 56,
+                "qualifiedName": "test_python_project.main.main",
+                "File": "test_python_project/main.py",
+                "location": {
+                    "startLine": 5,
+                    "startCol": 13
+                }
+            }
+        ],
+        "total_relations": 4
+    },
+    {
+        "id": 34,
+        "qualifiedName": "test_python_project.models.Employee.notify",
+        "category": "Function",
+        "File": "test_python_project/models.py",
+        "calls": [
+            {
+                "id": 32,
+                "qualifiedName": "test_python_project.models.Employee.greet",
+                "category": "Function",
+                "File": "test_python_project/models.py",
+                "location": {
+                    "startLine": 27,
+                    "startCol": 20
+                }
+            },
+            {
+                "id": 20,
+                "qualifiedName": "test_python_project.subpkg.adapter.send",
+                "category": "Function",
+                "File": "test_python_project/subpkg/adapter.py",
+                "location": {
+                    "startLine": 27,
+                    "startCol": 15
+                }
+            }
+        ],
+        "called_by": [
+            {
+                "id": 47,
+                "qualifiedName": "test_python_project.service.run",
+                "File": "test_python_project/service.py",
+                "location": {
+                    "startLine": 8,
+                    "startCol": 11
+                }
+            }
+        ],
+        "total_relations": 3
+    },
+    {
+        "id": 38,
+        "qualifiedName": "test_python_project.models.make_employee",
+        "category": "Function",
+        "File": "test_python_project/models.py",
+        "calls": [
+            {
+                "id": 29,
+                "qualifiedName": "test_python_project.models.Employee",
+                "category": "Class",
+                "File": "test_python_project/models.py",
+                "location": {
+                    "startLine": 35,
+                    "startCol": 11
+                }
+            }
+        ],
+        "called_by": [
+            {
+                "id": 49,
+                "qualifiedName": "test_python_project.service.as_employee",
+                "File": "test_python_project/service.py",
+                "location": {
+                    "startLine": 12,
+                    "startCol": 11
+                }
+            },
+            {
+                "id": 47,
+                "qualifiedName": "test_python_project.service.run",
+                "File": "test_python_project/service.py",
+                "location": {
+                    "startLine": 7,
+                    "startCol": 10
+                }
+            }
+        ],
+        "total_relations": 3
+    },
+    {
+        "id": 24,
+        "qualifiedName": "test_python_project.models.Person",
+        "category": "Class",
+        "File": "test_python_project/models.py",
+        "inherits_from": [],
+        "subclasses": [
+            {
+                "id": 29,
+                "qualifiedName": "test_python_project.models.Employee",
+                "File": "test_python_project/models.py"
+            }
+        ],
+        "instantiated_in": [
+            {
+                "id": 36,
+                "qualifiedName": "test_python_project.models.make_person",
+                "File": "test_python_project/models.py",
+                "location": {
+                    "startLine": 31,
+                    "startCol": 11
+                },
+                "startLine": 31
+            }
+        ],
+        "contains_functions": [
+            {
+                "qualifiedName": "test_python_project.models.Person.greet",
+                "location": {
+                    "startLine": 13,
+                    "endLine": -1,
+                    "startColumn": 8,
+                    "endColumn": -1
+                },
+                "File": "test_python_project/models.py",
+                "id": 27
+            }
+        ],
+        "total_relations": 2
+    },
+    {
+        "id": 29,
+        "qualifiedName": "test_python_project.models.Employee",
+        "category": "Class",
+        "File": "test_python_project/models.py",
+        "inherits_from": [
+            {
+                "id": 24,
+                "qualifiedName": "test_python_project.models.Person",
+                "File": "test_python_project/models.py"
+            }
+        ],
+        "subclasses": [],
+        "instantiated_in": [
+            {
+                "id": 38,
+                "qualifiedName": "test_python_project.models.make_employee",
+                "File": "test_python_project/models.py",
+                "location": {
+                    "startLine": 35,
+                    "startCol": 11
+                },
+                "startLine": 35
+            }
+        ],
+        "contains_functions": [
+            {
+                "qualifiedName": "test_python_project.models.Employee.greet",
+                "location": {
+                    "startLine": 22,
+                    "endLine": -1,
+                    "startColumn": 8,
+                    "endColumn": -1
+                },
+                "File": "test_python_project/models.py",
+                "id": 32
+            },
+            {
+                "qualifiedName": "test_python_project.models.Employee.notify",
+                "location": {
+                    "startLine": 26,
+                    "endLine": -1,
+                    "startColumn": 8,
+                    "endColumn": -1
+                },
+                "File": "test_python_project/models.py",
+                "id": 34
+            }
+        ],
+        "total_relations": 2
+    },
+    {
+        "id": 10,
+        "qualifiedName": "test_python_project.helpers.format_name",
+        "category": "Function",
+        "File": "test_python_project/helpers.py",
+        "calls": [],
+        "called_by": [
+            {
+                "id": 27,
+                "qualifiedName": "test_python_project.models.Person.greet",
+                "File": "test_python_project/models.py",
+                "location": {
+                    "startLine": 14,
+                    "startCol": 20
+                }
+            },
+            {
+                "id": 20,
+                "qualifiedName": "test_python_project.subpkg.adapter.send",
+                "File": "test_python_project/subpkg/adapter.py",
+                "location": {
+                    "startLine": 5,
+                    "startCol": 14
+                }
+            }
+        ],
+        "total_relations": 2
+    },
+    {
+        "id": 13,
+        "qualifiedName": "test_python_project.helpers.default_role",
+        "category": "Function",
+        "File": "test_python_project/helpers.py",
+        "calls": [],
+        "called_by": [
+            {
+                "id": 49,
+                "qualifiedName": "test_python_project.service.as_employee",
+                "File": "test_python_project/service.py",
+                "location": {
+                    "startLine": 12,
+                    "startCol": 36
+                }
+            },
+            {
+                "id": 47,
+                "qualifiedName": "test_python_project.service.run",
+                "File": "test_python_project/service.py",
+                "location": {
+                    "startLine": 6,
+                    "startCol": 11
+                }
+            }
+        ],
+        "total_relations": 2
+    },
+    {
+        "id": 20,
+        "qualifiedName": "test_python_project.subpkg.adapter.send",
+        "category": "Function",
+        "File": "test_python_project/subpkg/adapter.py",
+        "calls": [
+            {
+                "id": 10,
+                "qualifiedName": "test_python_project.helpers.format_name",
+                "category": "Function",
+                "File": "test_python_project/helpers.py",
+                "location": {
+                    "startLine": 5,
+                    "startCol": 14
+                }
+            }
+        ],
+        "called_by": [
+            {
+                "id": 34,
+                "qualifiedName": "test_python_project.models.Employee.notify",
+                "File": "test_python_project/models.py",
+                "location": {
+                    "startLine": 27,
+                    "startCol": 15
+                }
+            }
+        ],
+        "total_relations": 2
+    },
+    {
+        "id": 49,
+        "qualifiedName": "test_python_project.service.as_employee",
+        "category": "Function",
+        "File": "test_python_project/service.py",
+        "calls": [
+            {
+                "id": 13,
+                "qualifiedName": "test_python_project.helpers.default_role",
+                "category": "Function",
+                "File": "test_python_project/helpers.py",
+                "location": {
+                    "startLine": 12,
+                    "startCol": 36
+                }
+            },
+            {
+                "id": 38,
+                "qualifiedName": "test_python_project.models.make_employee",
+                "category": "Function",
+                "File": "test_python_project/models.py",
+                "location": {
+                    "startLine": 12,
+                    "startCol": 11
+                }
+            }
+        ],
+        "called_by": [],
+        "total_relations": 2
+    },
+    {
+        "id": 6,
+        "qualifiedName": "test_python_project.subpkg",
+        "category": "Package",
+        "File": "test_python_project/subpkg",
+        "contains": [
+            {
+                "id": 4,
+                "qualifiedName": "test_python_project.subpkg.__init__",
+                "category": "Module",
+                "File": "test_python_project/subpkg/__init__.py"
+            },
+            {
+                "id": 5,
+                "qualifiedName": "test_python_project.subpkg.adapter",
+                "category": "Module",
+                "File": "test_python_project/subpkg/adapter.py"
+            }
+        ],
+        "imports": [],
+        "imported_by": [],
+        "total_relations": 2
+    },
+    {
+        "id": 56,
+        "qualifiedName": "test_python_project.main.main",
+        "category": "Function",
+        "File": "test_python_project/main.py",
+        "calls": [
+            {
+                "id": 47,
+                "qualifiedName": "test_python_project.service.run",
+                "category": "Function",
+                "File": "test_python_project/service.py",
+                "location": {
+                    "startLine": 5,
+                    "startCol": 13
+                }
+            }
+        ],
+        "called_by": [],
+        "total_relations": 1
+    },
+    {
+        "id": 27,
+        "qualifiedName": "test_python_project.models.Person.greet",
+        "category": "Function",
+        "File": "test_python_project/models.py",
+        "calls": [
+            {
+                "id": 10,
+                "qualifiedName": "test_python_project.helpers.format_name",
+                "category": "Function",
+                "File": "test_python_project/helpers.py",
+                "location": {
+                    "startLine": 14,
+                    "startCol": 20
+                }
+            }
+        ],
+        "called_by": [],
+        "total_relations": 1
+    },
+    {
+        "id": 32,
+        "qualifiedName": "test_python_project.models.Employee.greet",
+        "category": "Function",
+        "File": "test_python_project/models.py",
+        "calls": [],
+        "called_by": [
+            {
+                "id": 34,
+                "qualifiedName": "test_python_project.models.Employee.notify",
+                "File": "test_python_project/models.py",
+                "location": {
+                    "startLine": 27,
+                    "startCol": 20
+                }
+            }
+        ],
+        "total_relations": 1
+    },
+    {
+        "id": 36,
+        "qualifiedName": "test_python_project.models.make_person",
+        "category": "Function",
+        "File": "test_python_project/models.py",
+        "calls": [
+            {
+                "id": 24,
+                "qualifiedName": "test_python_project.models.Person",
+                "category": "Class",
+                "File": "test_python_project/models.py",
+                "location": {
+                    "startLine": 31,
+                    "startCol": 11
+                }
+            }
+        ],
+        "called_by": [],
+        "total_relations": 1
+    },
+    {
+        "id": 1,
+        "qualifiedName": "test_python_project.main",
+        "category": "Module",
+        "File": "test_python_project/main.py",
+        "contains": [],
+        "imports": [],
+        "imported_by": [],
+        "total_relations": 0
+    },
+    {
+        "id": 2,
+        "qualifiedName": "test_python_project.models",
+        "category": "Module",
+        "File": "test_python_project/models.py",
+        "contains": [],
+        "imports": [],
+        "imported_by": [],
+        "total_relations": 0
+    },
+    {
+        "id": 3,
+        "qualifiedName": "test_python_project.helpers",
+        "category": "Module",
+        "File": "test_python_project/helpers.py",
+        "contains": [],
+        "imports": [],
+        "imported_by": [],
+        "total_relations": 0
+    },
+    {
+        "id": 4,
+        "qualifiedName": "test_python_project.subpkg.__init__",
+        "category": "Module",
+        "File": "test_python_project/subpkg/__init__.py",
+        "contains": [],
+        "imports": [],
+        "imported_by": [],
+        "total_relations": 0
+    },
+    {
+        "id": 5,
+        "qualifiedName": "test_python_project.subpkg.adapter",
+        "category": "Module",
+        "File": "test_python_project/subpkg/adapter.py",
+        "contains": [],
+        "imports": [],
+        "imported_by": [],
+        "total_relations": 0
+    },
+    {
+        "id": 7,
+        "qualifiedName": "test_python_project.__init__",
+        "category": "Module",
+        "File": "test_python_project/__init__.py",
+        "contains": [],
+        "imports": [],
+        "imported_by": [],
+        "total_relations": 0
+    },
+    {
+        "id": 8,
+        "qualifiedName": "test_python_project.service",
+        "category": "Module",
+        "File": "test_python_project/service.py",
+        "contains": [],
+        "imports": [],
+        "imported_by": [],
+        "total_relations": 0
+    }
+]

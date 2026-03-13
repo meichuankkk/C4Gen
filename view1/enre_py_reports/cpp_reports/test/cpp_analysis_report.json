@@ -1,0 +1,1076 @@
+[
+    {
+        "id": 1,
+        "qualifiedName": "demo",
+        "category": "Namespace",
+        "File": "null",
+        "defines": [
+            {
+                "id": 44,
+                "qualifiedName": "demo::Base",
+                "category": "Class Template",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/base.h",
+                "location": {
+                    "startLine": 7,
+                    "endLine": 7,
+                    "startColumn": 51,
+                    "endColumn": 51
+                }
+            },
+            {
+                "id": 66,
+                "qualifiedName": "demo::Base",
+                "category": "Class Template",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/util.h",
+                "location": {
+                    "startLine": 7,
+                    "endLine": 7,
+                    "startColumn": 51,
+                    "endColumn": 51
+                }
+            },
+            {
+                "id": 55,
+                "qualifiedName": "demo::Derived",
+                "category": "Class Template",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/derived.h",
+                "location": {
+                    "startLine": 7,
+                    "endLine": 7,
+                    "startColumn": 51,
+                    "endColumn": 51
+                }
+            },
+            {
+                "id": 4,
+                "qualifiedName": "demo::Derived",
+                "category": "Function",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/derived.cpp",
+                "location": {
+                    "startLine": 5,
+                    "endLine": 5,
+                    "startColumn": 40,
+                    "endColumn": 40
+                }
+            },
+            {
+                "id": 13,
+                "qualifiedName": "demo::aggregate",
+                "category": "Function",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+                "location": {
+                    "startLine": 8,
+                    "endLine": 8,
+                    "startColumn": 81,
+                    "endColumn": 81
+                }
+            },
+            {
+                "id": 34,
+                "qualifiedName": "demo::call_compute",
+                "category": "Function",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/base.cpp",
+                "location": {
+                    "startLine": 9,
+                    "endLine": 9,
+                    "startColumn": 96,
+                    "endColumn": 96
+                }
+            },
+            {
+                "id": 8,
+                "qualifiedName": "demo::compute",
+                "category": "Function",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/derived.cpp",
+                "location": {
+                    "startLine": 11,
+                    "endLine": 11,
+                    "startColumn": 150,
+                    "endColumn": 150
+                }
+            },
+            {
+                "id": 5,
+                "qualifiedName": "demo::name",
+                "category": "Function",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/derived.cpp",
+                "location": {
+                    "startLine": 7,
+                    "endLine": 7,
+                    "startColumn": 97,
+                    "endColumn": 97
+                }
+            },
+            {
+                "id": 30,
+                "qualifiedName": "demo::name",
+                "category": "Function",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/base.cpp",
+                "location": {
+                    "startLine": 5,
+                    "endLine": 5,
+                    "startColumn": 49,
+                    "endColumn": 49
+                }
+            },
+            {
+                "id": 40,
+                "qualifiedName": "demo::map_box",
+                "category": "Function Template",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/templ.h",
+                "location": {
+                    "startLine": 13,
+                    "endLine": 13,
+                    "startColumn": 134,
+                    "endColumn": 134
+                }
+            },
+            {
+                "id": 36,
+                "qualifiedName": "demo::Box",
+                "category": "Struct Template",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/templ.h",
+                "location": {
+                    "startLine": 8,
+                    "endLine": 8,
+                    "startColumn": 71,
+                    "endColumn": 71
+                }
+            },
+            {
+                "id": 19,
+                "qualifiedName": "demo::Runner",
+                "category": "Struct Template",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+                "location": {
+                    "startLine": 11,
+                    "endLine": 11,
+                    "startColumn": 136,
+                    "endColumn": 136
+                }
+            }
+        ],
+        "total_relations": 12
+    },
+    {
+        "id": 13,
+        "qualifiedName": "demo::aggregate",
+        "category": "Function",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+        "calls": [
+            {
+                "id": 34,
+                "qualifiedName": "demo::call_compute",
+                "category": "Function",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/base.cpp",
+                "location": {
+                    "startLine": 9,
+                    "endLine": 9,
+                    "startColumn": 96,
+                    "endColumn": 96
+                }
+            },
+            {
+                "id": 34,
+                "qualifiedName": "demo::call_compute",
+                "category": "Function",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/base.cpp",
+                "location": {
+                    "startLine": 9,
+                    "endLine": 9,
+                    "startColumn": 96,
+                    "endColumn": 96
+                }
+            }
+        ],
+        "called_by": [
+            {
+                "id": 20,
+                "qualifiedName": "demo::Runner::run",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+                "location": {
+                    "startLine": 12,
+                    "endLine": 12,
+                    "startColumn": 160,
+                    "endColumn": 160
+                }
+            },
+            {
+                "id": 20,
+                "qualifiedName": "demo::Runner::run",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+                "location": {
+                    "startLine": 12,
+                    "endLine": 12,
+                    "startColumn": 160,
+                    "endColumn": 160
+                }
+            },
+            {
+                "id": 20,
+                "qualifiedName": "demo::Runner::run",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+                "location": {
+                    "startLine": 12,
+                    "endLine": 12,
+                    "startColumn": 160,
+                    "endColumn": 160
+                }
+            },
+            {
+                "id": 20,
+                "qualifiedName": "demo::Runner::run",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+                "location": {
+                    "startLine": 12,
+                    "endLine": 12,
+                    "startColumn": 160,
+                    "endColumn": 160
+                }
+            }
+        ],
+        "overrides": [],
+        "overridden_by": [],
+        "total_relations": 6
+    },
+    {
+        "id": 20,
+        "qualifiedName": "demo::Runner::run",
+        "category": "Function",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+        "calls": [
+            {
+                "id": 13,
+                "qualifiedName": "demo::aggregate",
+                "category": "Function",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+                "location": {
+                    "startLine": 8,
+                    "endLine": 8,
+                    "startColumn": 81,
+                    "endColumn": 81
+                }
+            },
+            {
+                "id": 13,
+                "qualifiedName": "demo::aggregate",
+                "category": "Function",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+                "location": {
+                    "startLine": 8,
+                    "endLine": 8,
+                    "startColumn": 81,
+                    "endColumn": 81
+                }
+            },
+            {
+                "id": 13,
+                "qualifiedName": "demo::aggregate",
+                "category": "Function",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+                "location": {
+                    "startLine": 8,
+                    "endLine": 8,
+                    "startColumn": 81,
+                    "endColumn": 81
+                }
+            },
+            {
+                "id": 13,
+                "qualifiedName": "demo::aggregate",
+                "category": "Function",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+                "location": {
+                    "startLine": 8,
+                    "endLine": 8,
+                    "startColumn": 81,
+                    "endColumn": 81
+                }
+            },
+            {
+                "id": 40,
+                "qualifiedName": "demo::map_box",
+                "category": "Function Template",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/templ.h",
+                "location": {
+                    "startLine": 13,
+                    "endLine": 13,
+                    "startColumn": 134,
+                    "endColumn": 134
+                }
+            },
+            {
+                "id": 40,
+                "qualifiedName": "demo::map_box",
+                "category": "Function Template",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/templ.h",
+                "location": {
+                    "startLine": 13,
+                    "endLine": 13,
+                    "startColumn": 134,
+                    "endColumn": 134
+                }
+            }
+        ],
+        "called_by": [],
+        "overrides": [],
+        "overridden_by": [],
+        "total_relations": 6
+    },
+    {
+        "id": 18,
+        "qualifiedName": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+        "category": "File",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+        "includes": [],
+        "included_by": [],
+        "defines": [
+            {
+                "id": 27,
+                "qualifiedName": "main",
+                "category": "Function",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+                "location": {
+                    "startLine": 27,
+                    "endLine": 27,
+                    "startColumn": 485,
+                    "endColumn": 485
+                }
+            },
+            {
+                "id": 1,
+                "qualifiedName": "demo",
+                "category": "Namespace",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+                "location": {
+                    "startLine": 9,
+                    "endLine": 9,
+                    "startColumn": 1,
+                    "endColumn": 1
+                }
+            }
+        ],
+        "total_relations": 2
+    },
+    {
+        "id": 34,
+        "qualifiedName": "demo::call_compute",
+        "category": "Function",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/base.cpp",
+        "calls": [],
+        "called_by": [
+            {
+                "id": 13,
+                "qualifiedName": "demo::aggregate",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+                "location": {
+                    "startLine": 8,
+                    "endLine": 8,
+                    "startColumn": 81,
+                    "endColumn": 81
+                }
+            },
+            {
+                "id": 13,
+                "qualifiedName": "demo::aggregate",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+                "location": {
+                    "startLine": 8,
+                    "endLine": 8,
+                    "startColumn": 81,
+                    "endColumn": 81
+                }
+            }
+        ],
+        "overrides": [],
+        "overridden_by": [],
+        "total_relations": 2
+    },
+    {
+        "id": 42,
+        "qualifiedName": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/derived.h",
+        "category": "File",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/derived.h",
+        "includes": [
+            {
+                "id": 43,
+                "qualifiedName": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/base.h",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/base.h",
+                "location": {
+                    "startLine": 3,
+                    "endLine": 3,
+                    "startColumn": 1,
+                    "endColumn": 1
+                }
+            }
+        ],
+        "included_by": [],
+        "defines": [
+            {
+                "id": 1,
+                "qualifiedName": "demo",
+                "category": "Namespace",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/derived.h",
+                "location": {
+                    "startLine": 5,
+                    "endLine": 5,
+                    "startColumn": 1,
+                    "endColumn": 1
+                }
+            }
+        ],
+        "total_relations": 2
+    },
+    {
+        "id": 43,
+        "qualifiedName": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/base.h",
+        "category": "File",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/base.h",
+        "includes": [],
+        "included_by": [
+            {
+                "id": 42,
+                "qualifiedName": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/derived.h",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/derived.h",
+                "location": {
+                    "startLine": 3,
+                    "endLine": 3,
+                    "startColumn": 1,
+                    "endColumn": 1
+                }
+            }
+        ],
+        "defines": [
+            {
+                "id": 1,
+                "qualifiedName": "demo",
+                "category": "Namespace",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/base.h",
+                "location": {
+                    "startLine": 5,
+                    "endLine": 5,
+                    "startColumn": 1,
+                    "endColumn": 1
+                }
+            }
+        ],
+        "total_relations": 2
+    },
+    {
+        "id": 0,
+        "qualifiedName": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/derived.cpp",
+        "category": "File",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/derived.cpp",
+        "includes": [],
+        "included_by": [],
+        "defines": [
+            {
+                "id": 1,
+                "qualifiedName": "demo",
+                "category": "Namespace",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/derived.cpp",
+                "location": {
+                    "startLine": 3,
+                    "endLine": 3,
+                    "startColumn": 1,
+                    "endColumn": 1
+                }
+            }
+        ],
+        "total_relations": 1
+    },
+    {
+        "id": 9,
+        "qualifiedName": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+        "category": "File",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+        "includes": [],
+        "included_by": [],
+        "defines": [
+            {
+                "id": 1,
+                "qualifiedName": "demo",
+                "category": "Namespace",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+                "location": {
+                    "startLine": 6,
+                    "endLine": 6,
+                    "startColumn": 1,
+                    "endColumn": 1
+                }
+            }
+        ],
+        "total_relations": 1
+    },
+    {
+        "id": 29,
+        "qualifiedName": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/base.cpp",
+        "category": "File",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/base.cpp",
+        "includes": [],
+        "included_by": [],
+        "defines": [
+            {
+                "id": 1,
+                "qualifiedName": "demo",
+                "category": "Namespace",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/base.cpp",
+                "location": {
+                    "startLine": 3,
+                    "endLine": 3,
+                    "startColumn": 1,
+                    "endColumn": 1
+                }
+            }
+        ],
+        "total_relations": 1
+    },
+    {
+        "id": 35,
+        "qualifiedName": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/templ.h",
+        "category": "File",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/templ.h",
+        "includes": [],
+        "included_by": [],
+        "defines": [
+            {
+                "id": 1,
+                "qualifiedName": "demo",
+                "category": "Namespace",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/templ.h",
+                "location": {
+                    "startLine": 5,
+                    "endLine": 5,
+                    "startColumn": 1,
+                    "endColumn": 1
+                }
+            }
+        ],
+        "total_relations": 1
+    },
+    {
+        "id": 47,
+        "qualifiedName": "demo::Base::name",
+        "category": "Function",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/base.h",
+        "calls": [],
+        "called_by": [],
+        "overrides": [],
+        "overridden_by": [
+            {
+                "id": 60,
+                "qualifiedName": "demo::Derived::name",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/derived.h",
+                "location": {
+                    "startLine": 10,
+                    "endLine": 10,
+                    "startColumn": 137,
+                    "endColumn": 137
+                }
+            }
+        ],
+        "total_relations": 1
+    },
+    {
+        "id": 50,
+        "qualifiedName": "demo::Base::compute",
+        "category": "Function",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/base.h",
+        "calls": [],
+        "called_by": [],
+        "overrides": [],
+        "overridden_by": [
+            {
+                "id": 63,
+                "qualifiedName": "demo::Derived::compute",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/derived.h",
+                "location": {
+                    "startLine": 11,
+                    "endLine": 11,
+                    "startColumn": 168,
+                    "endColumn": 168
+                }
+            }
+        ],
+        "total_relations": 1
+    },
+    {
+        "id": 60,
+        "qualifiedName": "demo::Derived::name",
+        "category": "Function",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/derived.h",
+        "calls": [],
+        "called_by": [],
+        "overrides": [
+            {
+                "id": 47,
+                "qualifiedName": "demo::Base::name",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/base.h",
+                "location": {
+                    "startLine": 10,
+                    "endLine": 10,
+                    "startColumn": 127,
+                    "endColumn": 127
+                }
+            }
+        ],
+        "overridden_by": [],
+        "total_relations": 1
+    },
+    {
+        "id": 63,
+        "qualifiedName": "demo::Derived::compute",
+        "category": "Function",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/derived.h",
+        "calls": [],
+        "called_by": [],
+        "overrides": [
+            {
+                "id": 50,
+                "qualifiedName": "demo::Base::compute",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/base.h",
+                "location": {
+                    "startLine": 11,
+                    "endLine": 11,
+                    "startColumn": 157,
+                    "endColumn": 157
+                }
+            }
+        ],
+        "overridden_by": [],
+        "total_relations": 1
+    },
+    {
+        "id": 65,
+        "qualifiedName": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/util.h",
+        "category": "File",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/util.h",
+        "includes": [],
+        "included_by": [],
+        "defines": [
+            {
+                "id": 1,
+                "qualifiedName": "demo",
+                "category": "Namespace",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/util.h",
+                "location": {
+                    "startLine": 5,
+                    "endLine": 5,
+                    "startColumn": 1,
+                    "endColumn": 1
+                }
+            }
+        ],
+        "total_relations": 1
+    },
+    {
+        "id": 2,
+        "qualifiedName": "bias",
+        "category": "Parameter Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/derived.cpp",
+        "total_relations": 0
+    },
+    {
+        "id": 4,
+        "qualifiedName": "demo::Derived",
+        "category": "Function",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/derived.cpp",
+        "calls": [],
+        "called_by": [],
+        "overrides": [],
+        "overridden_by": [],
+        "total_relations": 0
+    },
+    {
+        "id": 5,
+        "qualifiedName": "demo::name",
+        "category": "Function",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/derived.cpp",
+        "calls": [],
+        "called_by": [],
+        "overrides": [],
+        "overridden_by": [],
+        "total_relations": 0
+    },
+    {
+        "id": 6,
+        "qualifiedName": "x",
+        "category": "Parameter Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/derived.cpp",
+        "total_relations": 0
+    },
+    {
+        "id": 8,
+        "qualifiedName": "demo::compute",
+        "category": "Function",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/derived.cpp",
+        "calls": [],
+        "called_by": [],
+        "overrides": [],
+        "overridden_by": [],
+        "total_relations": 0
+    },
+    {
+        "id": 10,
+        "qualifiedName": "b",
+        "category": "Parameter Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+        "total_relations": 0
+    },
+    {
+        "id": 11,
+        "qualifiedName": "xs",
+        "category": "Parameter Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+        "total_relations": 0
+    },
+    {
+        "id": 12,
+        "qualifiedName": "mode",
+        "category": "Parameter Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+        "total_relations": 0
+    },
+    {
+        "id": 14,
+        "qualifiedName": "acc",
+        "category": "Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+        "total_relations": 0
+    },
+    {
+        "id": 15,
+        "qualifiedName": "cur_max",
+        "category": "Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+        "total_relations": 0
+    },
+    {
+        "id": 16,
+        "qualifiedName": "x",
+        "category": "Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+        "total_relations": 0
+    },
+    {
+        "id": 17,
+        "qualifiedName": "v",
+        "category": "Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+        "total_relations": 0
+    },
+    {
+        "id": 19,
+        "qualifiedName": "demo::Runner",
+        "category": "Struct Template",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+        "total_relations": 0
+    },
+    {
+        "id": 21,
+        "qualifiedName": "d",
+        "category": "Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+        "total_relations": 0
+    },
+    {
+        "id": 22,
+        "qualifiedName": "xs",
+        "category": "Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+        "total_relations": 0
+    },
+    {
+        "id": 23,
+        "qualifiedName": "a",
+        "category": "Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+        "total_relations": 0
+    },
+    {
+        "id": 24,
+        "qualifiedName": "b",
+        "category": "Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+        "total_relations": 0
+    },
+    {
+        "id": 25,
+        "qualifiedName": "bi",
+        "category": "Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+        "total_relations": 0
+    },
+    {
+        "id": 26,
+        "qualifiedName": "bj",
+        "category": "Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+        "total_relations": 0
+    },
+    {
+        "id": 27,
+        "qualifiedName": "main",
+        "category": "Function",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+        "calls": [],
+        "called_by": [],
+        "overrides": [],
+        "overridden_by": [],
+        "total_relations": 0
+    },
+    {
+        "id": 28,
+        "qualifiedName": "r",
+        "category": "Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+        "total_relations": 0
+    },
+    {
+        "id": 30,
+        "qualifiedName": "demo::name",
+        "category": "Function",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/base.cpp",
+        "calls": [],
+        "called_by": [],
+        "overrides": [],
+        "overridden_by": [],
+        "total_relations": 0
+    },
+    {
+        "id": 31,
+        "qualifiedName": "b",
+        "category": "Parameter Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/base.cpp",
+        "total_relations": 0
+    },
+    {
+        "id": 32,
+        "qualifiedName": "x",
+        "category": "Parameter Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/base.cpp",
+        "total_relations": 0
+    },
+    {
+        "id": 36,
+        "qualifiedName": "demo::Box",
+        "category": "Struct Template",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/templ.h",
+        "total_relations": 0
+    },
+    {
+        "id": 37,
+        "qualifiedName": "value",
+        "category": "Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/templ.h",
+        "total_relations": 0
+    },
+    {
+        "id": 38,
+        "qualifiedName": "b",
+        "category": "Parameter Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/templ.h",
+        "total_relations": 0
+    },
+    {
+        "id": 39,
+        "qualifiedName": "f",
+        "category": "Parameter Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/templ.h",
+        "total_relations": 0
+    },
+    {
+        "id": 40,
+        "qualifiedName": "demo::map_box",
+        "category": "Function Template",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/templ.h",
+        "total_relations": 0
+    },
+    {
+        "id": 41,
+        "qualifiedName": "demo::map_box::U",
+        "category": "Alias",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/templ.h",
+        "total_relations": 0
+    },
+    {
+        "id": 44,
+        "qualifiedName": "demo::Base",
+        "category": "Class Template",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/base.h",
+        "total_relations": 0
+    },
+    {
+        "id": 45,
+        "qualifiedName": "demo::Base::~Base",
+        "category": "Function",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/base.h",
+        "calls": [],
+        "called_by": [],
+        "overrides": [],
+        "overridden_by": [],
+        "total_relations": 0
+    },
+    {
+        "id": 46,
+        "qualifiedName": "name",
+        "category": "Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/base.h",
+        "total_relations": 0
+    },
+    {
+        "id": 48,
+        "qualifiedName": "x",
+        "category": "Parameter Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/base.h",
+        "total_relations": 0
+    },
+    {
+        "id": 51,
+        "qualifiedName": "b",
+        "category": "Parameter Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/base.h",
+        "total_relations": 0
+    },
+    {
+        "id": 52,
+        "qualifiedName": "x",
+        "category": "Parameter Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/base.h",
+        "total_relations": 0
+    },
+    {
+        "id": 54,
+        "qualifiedName": "demo::call_compute",
+        "category": "Function",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/base.h",
+        "calls": [],
+        "called_by": [],
+        "overrides": [],
+        "overridden_by": [],
+        "total_relations": 0
+    },
+    {
+        "id": 55,
+        "qualifiedName": "demo::Derived",
+        "category": "Class Template",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/derived.h",
+        "total_relations": 0
+    },
+    {
+        "id": 56,
+        "qualifiedName": "bias",
+        "category": "Parameter Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/derived.h",
+        "total_relations": 0
+    },
+    {
+        "id": 58,
+        "qualifiedName": "demo::Derived::Derived",
+        "category": "Function",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/derived.h",
+        "calls": [],
+        "called_by": [],
+        "overrides": [],
+        "overridden_by": [],
+        "total_relations": 0
+    },
+    {
+        "id": 59,
+        "qualifiedName": "name",
+        "category": "Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/derived.h",
+        "total_relations": 0
+    },
+    {
+        "id": 61,
+        "qualifiedName": "x",
+        "category": "Parameter Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/derived.h",
+        "total_relations": 0
+    },
+    {
+        "id": 64,
+        "qualifiedName": "bias_",
+        "category": "Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/derived.h",
+        "total_relations": 0
+    },
+    {
+        "id": 66,
+        "qualifiedName": "demo::Base",
+        "category": "Class Template",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/util.h",
+        "total_relations": 0
+    },
+    {
+        "id": 67,
+        "qualifiedName": "demo::Base::Mode",
+        "category": "Enum",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/util.h",
+        "total_relations": 0
+    },
+    {
+        "id": 68,
+        "qualifiedName": "demo::Base::Mode::Sum",
+        "category": "Enumerator",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/util.h",
+        "total_relations": 0
+    },
+    {
+        "id": 69,
+        "qualifiedName": "demo::Base::Mode::Max",
+        "category": "Enumerator",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/util.h",
+        "total_relations": 0
+    },
+    {
+        "id": 70,
+        "qualifiedName": "b",
+        "category": "Parameter Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/util.h",
+        "total_relations": 0
+    },
+    {
+        "id": 71,
+        "qualifiedName": "xs",
+        "category": "Parameter Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/util.h",
+        "total_relations": 0
+    },
+    {
+        "id": 72,
+        "qualifiedName": "mode",
+        "category": "Parameter Variable",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/util.h",
+        "total_relations": 0
+    },
+    {
+        "id": 73,
+        "qualifiedName": "demo::Base::aggregate",
+        "category": "Function",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/util.h",
+        "calls": [],
+        "called_by": [],
+        "overrides": [],
+        "overridden_by": [],
+        "total_relations": 0
+    },
+    {
+        "id": 74,
+        "qualifiedName": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/config.h",
+        "category": "File",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/config.h",
+        "includes": [],
+        "included_by": [],
+        "defines": [],
+        "total_relations": 0
+    },
+    {
+        "id": 75,
+        "qualifiedName": "DEMO_FACTOR",
+        "category": "Macro",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/config.h",
+        "total_relations": 0
+    }
+]

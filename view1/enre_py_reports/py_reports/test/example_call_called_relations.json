@@ -1,0 +1,52 @@
+[
+    {
+        "id": 47,
+        "qualifiedName": "test_python_project.service.run",
+        "category": "Function",
+        "File": "test_python_project/service.py",
+        "calls": [
+            {
+                "id": 13,
+                "qualifiedName": "test_python_project.helpers.default_role",
+                "category": "Function",
+                "File": "test_python_project/helpers.py",
+                "location": {
+                    "startLine": 6,
+                    "startCol": 11
+                }
+            },
+            {
+                "id": 34,
+                "qualifiedName": "test_python_project.models.Employee.notify",
+                "category": "Function",
+                "File": "test_python_project/models.py",
+                "location": {
+                    "startLine": 8,
+                    "startCol": 11
+                }
+            },
+            {
+                "id": 38,
+                "qualifiedName": "test_python_project.models.make_employee",
+                "category": "Function",
+                "File": "test_python_project/models.py",
+                "location": {
+                    "startLine": 7,
+                    "startCol": 10
+                }
+            }
+        ],
+        "called_by": [
+            {
+                "id": 56,
+                "qualifiedName": "test_python_project.main.main",
+                "File": "test_python_project/main.py",
+                "location": {
+                    "startLine": 5,
+                    "startCol": 13
+                }
+            }
+        ],
+        "total_relations": 4
+    }
+]

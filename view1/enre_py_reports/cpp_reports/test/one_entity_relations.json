@@ -1,0 +1,86 @@
+[
+    {
+        "id": 20,
+        "qualifiedName": "demo::Runner::run",
+        "category": "Function",
+        "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+        "calls": [
+            {
+                "id": 13,
+                "qualifiedName": "demo::aggregate",
+                "category": "Function",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+                "location": {
+                    "startLine": 8,
+                    "endLine": 8,
+                    "startColumn": 81,
+                    "endColumn": 81
+                }
+            },
+            {
+                "id": 13,
+                "qualifiedName": "demo::aggregate",
+                "category": "Function",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+                "location": {
+                    "startLine": 8,
+                    "endLine": 8,
+                    "startColumn": 81,
+                    "endColumn": 81
+                }
+            },
+            {
+                "id": 13,
+                "qualifiedName": "demo::aggregate",
+                "category": "Function",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+                "location": {
+                    "startLine": 8,
+                    "endLine": 8,
+                    "startColumn": 81,
+                    "endColumn": 81
+                }
+            },
+            {
+                "id": 13,
+                "qualifiedName": "demo::aggregate",
+                "category": "Function",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+                "location": {
+                    "startLine": 8,
+                    "endLine": 8,
+                    "startColumn": 81,
+                    "endColumn": 81
+                }
+            },
+            {
+                "id": 40,
+                "qualifiedName": "demo::map_box",
+                "category": "Function Template",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/templ.h",
+                "location": {
+                    "startLine": 13,
+                    "endLine": 13,
+                    "startColumn": 134,
+                    "endColumn": 134
+                }
+            },
+            {
+                "id": 40,
+                "qualifiedName": "demo::map_box",
+                "category": "Function Template",
+                "File": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/templ.h",
+                "location": {
+                    "startLine": 13,
+                    "endLine": 13,
+                    "startColumn": 134,
+                    "endColumn": 134
+                }
+            }
+        ],
+        "called_by": [],
+        "overrides": [],
+        "overridden_by": [],
+        "total_relations": 6
+    }
+]

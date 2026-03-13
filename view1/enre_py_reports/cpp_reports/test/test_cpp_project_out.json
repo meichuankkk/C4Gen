@@ -1,0 +1,1291 @@
+[
+  {
+    "variables": [
+      {
+        "qualifiedName": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/derived.cpp",
+        "id": 0,
+        "entityType": "File",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/derived.cpp",
+        "startLine": -1,
+        "startColumn": -1,
+        "endLine": -1,
+        "endColumn": -1,
+        "parentID": -1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "demo",
+        "id": 1,
+        "entityType": "Namespace",
+        "entityFile": "null",
+        "startLine": -1,
+        "startColumn": -1,
+        "endLine": -1,
+        "endColumn": -1,
+        "parentID": 0,
+        "scale": 101
+      },
+      {
+        "qualifiedName": "bias",
+        "id": 2,
+        "entityType": "Parameter Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/derived.cpp",
+        "startLine": 5,
+        "startColumn": 61,
+        "endLine": 5,
+        "endColumn": 61,
+        "parentID": -1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "demo::Derived",
+        "id": 4,
+        "entityType": "Function",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/derived.cpp",
+        "startLine": 5,
+        "startColumn": 40,
+        "endLine": 5,
+        "endColumn": 40,
+        "parentID": 1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "demo::name",
+        "id": 5,
+        "entityType": "Function",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/derived.cpp",
+        "startLine": 7,
+        "startColumn": 97,
+        "endLine": 7,
+        "endColumn": 97,
+        "parentID": 1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "x",
+        "id": 6,
+        "entityType": "Parameter Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/derived.cpp",
+        "startLine": 11,
+        "startColumn": 171,
+        "endLine": 11,
+        "endColumn": 171,
+        "parentID": -1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "demo::compute",
+        "id": 8,
+        "entityType": "Function",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/derived.cpp",
+        "startLine": 11,
+        "startColumn": 150,
+        "endLine": 11,
+        "endColumn": 150,
+        "parentID": 1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+        "id": 9,
+        "entityType": "File",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+        "startLine": -1,
+        "startColumn": -1,
+        "endLine": -1,
+        "endColumn": -1,
+        "parentID": -1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "b",
+        "id": 10,
+        "entityType": "Parameter Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+        "startLine": 8,
+        "startColumn": 103,
+        "endLine": 8,
+        "endColumn": 103,
+        "parentID": -1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "xs",
+        "id": 11,
+        "entityType": "Parameter Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+        "startLine": 8,
+        "startColumn": 130,
+        "endLine": 8,
+        "endColumn": 130,
+        "parentID": -1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "mode",
+        "id": 12,
+        "entityType": "Parameter Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+        "startLine": 8,
+        "startColumn": 139,
+        "endLine": 8,
+        "endColumn": 139,
+        "parentID": -1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "demo::aggregate",
+        "id": 13,
+        "entityType": "Function",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+        "startLine": 8,
+        "startColumn": 81,
+        "endLine": 8,
+        "endColumn": 81,
+        "parentID": 1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "acc",
+        "id": 14,
+        "entityType": "Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+        "startLine": 9,
+        "startColumn": 155,
+        "endLine": 9,
+        "endColumn": 155,
+        "parentID": 13,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "cur_max",
+        "id": 15,
+        "entityType": "Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+        "startLine": 10,
+        "startColumn": 172,
+        "endLine": 10,
+        "endColumn": 172,
+        "parentID": 13,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "x",
+        "id": 16,
+        "entityType": "Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+        "startLine": 11,
+        "startColumn": 198,
+        "endLine": 11,
+        "endColumn": 198,
+        "parentID": 13,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "v",
+        "id": 17,
+        "entityType": "Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/util.cpp",
+        "startLine": 12,
+        "startColumn": 220,
+        "endLine": 12,
+        "endColumn": 220,
+        "parentID": 13,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+        "id": 18,
+        "entityType": "File",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+        "startLine": -1,
+        "startColumn": -1,
+        "endLine": -1,
+        "endColumn": -1,
+        "parentID": -1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "demo::Runner",
+        "id": 19,
+        "entityType": "Struct Template",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+        "startLine": 11,
+        "startColumn": 136,
+        "endLine": 11,
+        "endColumn": 136,
+        "parentID": 1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "demo::Runner::run",
+        "id": 20,
+        "entityType": "Function",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+        "startLine": 12,
+        "startColumn": 160,
+        "endLine": 12,
+        "endColumn": 160,
+        "parentID": 19,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "d",
+        "id": 21,
+        "entityType": "Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+        "startLine": 13,
+        "startColumn": 190,
+        "endLine": 13,
+        "endColumn": 190,
+        "parentID": 20,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "xs",
+        "id": 22,
+        "entityType": "Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+        "startLine": 14,
+        "startColumn": 231,
+        "endLine": 14,
+        "endColumn": 231,
+        "parentID": 20,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "a",
+        "id": 23,
+        "entityType": "Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+        "startLine": 15,
+        "startColumn": 256,
+        "endLine": 15,
+        "endColumn": 256,
+        "parentID": 20,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "b",
+        "id": 24,
+        "entityType": "Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+        "startLine": 16,
+        "startColumn": 301,
+        "endLine": 16,
+        "endColumn": 301,
+        "parentID": 20,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "bi",
+        "id": 25,
+        "entityType": "Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+        "startLine": 18,
+        "startColumn": 352,
+        "endLine": 18,
+        "endColumn": 352,
+        "parentID": 20,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "bj",
+        "id": 26,
+        "entityType": "Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+        "startLine": 19,
+        "startColumn": 376,
+        "endLine": 19,
+        "endColumn": 376,
+        "parentID": 20,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "main",
+        "id": 27,
+        "entityType": "Function",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+        "startLine": 27,
+        "startColumn": 485,
+        "endLine": 27,
+        "endColumn": 485,
+        "parentID": 18,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "r",
+        "id": 28,
+        "entityType": "Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/main.cpp",
+        "startLine": 28,
+        "startColumn": 511,
+        "endLine": 28,
+        "endColumn": 511,
+        "parentID": 27,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/base.cpp",
+        "id": 29,
+        "entityType": "File",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/base.cpp",
+        "startLine": -1,
+        "startColumn": -1,
+        "endLine": -1,
+        "endColumn": -1,
+        "parentID": -1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "demo::name",
+        "id": 30,
+        "entityType": "Function",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/base.cpp",
+        "startLine": 5,
+        "startColumn": 49,
+        "endLine": 5,
+        "endColumn": 49,
+        "parentID": 1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "b",
+        "id": 31,
+        "entityType": "Parameter Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/base.cpp",
+        "startLine": 9,
+        "startColumn": 121,
+        "endLine": 9,
+        "endColumn": 121,
+        "parentID": -1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "x",
+        "id": 32,
+        "entityType": "Parameter Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/base.cpp",
+        "startLine": 9,
+        "startColumn": 128,
+        "endLine": 9,
+        "endColumn": 128,
+        "parentID": -1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "demo::call_compute",
+        "id": 34,
+        "entityType": "Function",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/src/base.cpp",
+        "startLine": 9,
+        "startColumn": 96,
+        "endLine": 9,
+        "endColumn": 96,
+        "parentID": 1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/templ.h",
+        "id": 35,
+        "entityType": "File",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/templ.h",
+        "startLine": -1,
+        "startColumn": -1,
+        "endLine": -1,
+        "endColumn": -1,
+        "parentID": -1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "demo::Box",
+        "id": 36,
+        "entityType": "Struct Template",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/templ.h",
+        "startLine": 8,
+        "startColumn": 71,
+        "endLine": 8,
+        "endColumn": 71,
+        "parentID": 1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "value",
+        "id": 37,
+        "entityType": "Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/templ.h",
+        "startLine": 9,
+        "startColumn": 90,
+        "endLine": 9,
+        "endColumn": 90,
+        "parentID": 36,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "b",
+        "id": 38,
+        "entityType": "Parameter Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/templ.h",
+        "startLine": 13,
+        "startColumn": 149,
+        "endLine": 13,
+        "endColumn": 149,
+        "parentID": -1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "f",
+        "id": 39,
+        "entityType": "Parameter Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/templ.h",
+        "startLine": 13,
+        "startColumn": 154,
+        "endLine": 13,
+        "endColumn": 154,
+        "parentID": -1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "demo::map_box",
+        "id": 40,
+        "entityType": "Function Template",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/templ.h",
+        "startLine": 13,
+        "startColumn": 134,
+        "endLine": 13,
+        "endColumn": 134,
+        "parentID": 1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "demo::map_box::U",
+        "id": 41,
+        "entityType": "Alias",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/templ.h",
+        "startLine": 14,
+        "startColumn": 203,
+        "endLine": 14,
+        "endColumn": 203,
+        "parentID": 40,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/derived.h",
+        "id": 42,
+        "entityType": "File",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/derived.h",
+        "startLine": -1,
+        "startColumn": -1,
+        "endLine": -1,
+        "endColumn": -1,
+        "parentID": -1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/base.h",
+        "id": 43,
+        "entityType": "File",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/base.h",
+        "startLine": -1,
+        "startColumn": -1,
+        "endLine": -1,
+        "endColumn": -1,
+        "parentID": -1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "demo::Base",
+        "id": 44,
+        "entityType": "Class Template",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/base.h",
+        "startLine": 7,
+        "startColumn": 51,
+        "endLine": 7,
+        "endColumn": 51,
+        "parentID": 1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "demo::Base::~Base",
+        "id": 45,
+        "entityType": "Function",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/base.h",
+        "startLine": 9,
+        "startColumn": 84,
+        "endLine": 9,
+        "endColumn": 84,
+        "parentID": 44,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "name",
+        "id": 46,
+        "entityType": "Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/base.h",
+        "startLine": 10,
+        "startColumn": 127,
+        "endLine": 10,
+        "endColumn": 127,
+        "parentID": 44,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "demo::Base::name",
+        "id": 47,
+        "entityType": "Function",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/base.h",
+        "startLine": 10,
+        "startColumn": 127,
+        "endLine": 10,
+        "endColumn": 127,
+        "parentID": 44,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "x",
+        "id": 48,
+        "entityType": "Parameter Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/base.h",
+        "startLine": 11,
+        "startColumn": 169,
+        "endLine": 11,
+        "endColumn": 169,
+        "parentID": -1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "demo::Base::compute",
+        "id": 50,
+        "entityType": "Function",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/base.h",
+        "startLine": 11,
+        "startColumn": 157,
+        "endLine": 11,
+        "endColumn": 157,
+        "parentID": 44,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "b",
+        "id": 51,
+        "entityType": "Parameter Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/base.h",
+        "startLine": 14,
+        "startColumn": 216,
+        "endLine": 14,
+        "endColumn": 216,
+        "parentID": -1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "x",
+        "id": 52,
+        "entityType": "Parameter Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/base.h",
+        "startLine": 14,
+        "startColumn": 223,
+        "endLine": 14,
+        "endColumn": 223,
+        "parentID": -1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "demo::call_compute",
+        "id": 54,
+        "entityType": "Function",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/base.h",
+        "startLine": 14,
+        "startColumn": 191,
+        "endLine": 14,
+        "endColumn": 191,
+        "parentID": 1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "demo::Derived",
+        "id": 55,
+        "entityType": "Class Template",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/derived.h",
+        "startLine": 7,
+        "startColumn": 51,
+        "endLine": 7,
+        "endColumn": 51,
+        "parentID": 1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "bias",
+        "id": 56,
+        "entityType": "Parameter Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/derived.h",
+        "startLine": 9,
+        "startColumn": 114,
+        "endLine": 9,
+        "endColumn": 114,
+        "parentID": -1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "demo::Derived::Derived",
+        "id": 58,
+        "entityType": "Function",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/derived.h",
+        "startLine": 9,
+        "startColumn": 102,
+        "endLine": 9,
+        "endColumn": 102,
+        "parentID": 55,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "name",
+        "id": 59,
+        "entityType": "Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/derived.h",
+        "startLine": 10,
+        "startColumn": 137,
+        "endLine": 10,
+        "endColumn": 137,
+        "parentID": 55,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "demo::Derived::name",
+        "id": 60,
+        "entityType": "Function",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/derived.h",
+        "startLine": 10,
+        "startColumn": 137,
+        "endLine": 10,
+        "endColumn": 137,
+        "parentID": 55,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "x",
+        "id": 61,
+        "entityType": "Parameter Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/derived.h",
+        "startLine": 11,
+        "startColumn": 180,
+        "endLine": 11,
+        "endColumn": 180,
+        "parentID": -1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "demo::Derived::compute",
+        "id": 63,
+        "entityType": "Function",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/derived.h",
+        "startLine": 11,
+        "startColumn": 168,
+        "endLine": 11,
+        "endColumn": 168,
+        "parentID": 55,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "bias_",
+        "id": 64,
+        "entityType": "Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/derived.h",
+        "startLine": 14,
+        "startColumn": 217,
+        "endLine": 14,
+        "endColumn": 217,
+        "parentID": 55,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/util.h",
+        "id": 65,
+        "entityType": "File",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/util.h",
+        "startLine": -1,
+        "startColumn": -1,
+        "endLine": -1,
+        "endColumn": -1,
+        "parentID": -1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "demo::Base",
+        "id": 66,
+        "entityType": "Class Template",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/util.h",
+        "startLine": 7,
+        "startColumn": 51,
+        "endLine": 7,
+        "endColumn": 51,
+        "parentID": 1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "demo::Base::Mode",
+        "id": 67,
+        "entityType": "Enum",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/util.h",
+        "startLine": 9,
+        "startColumn": 64,
+        "endLine": 9,
+        "endColumn": 64,
+        "parentID": 66,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "demo::Base::Mode::Sum",
+        "id": 68,
+        "entityType": "Enumerator",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/util.h",
+        "startLine": 10,
+        "startColumn": 86,
+        "endLine": 10,
+        "endColumn": 86,
+        "parentID": 67,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "demo::Base::Mode::Max",
+        "id": 69,
+        "entityType": "Enumerator",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/util.h",
+        "startLine": 11,
+        "startColumn": 99,
+        "endLine": 11,
+        "endColumn": 99,
+        "parentID": 67,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "b",
+        "id": 70,
+        "entityType": "Parameter Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/util.h",
+        "startLine": 14,
+        "startColumn": 138,
+        "endLine": 14,
+        "endColumn": 138,
+        "parentID": -1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "xs",
+        "id": 71,
+        "entityType": "Parameter Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/util.h",
+        "startLine": 14,
+        "startColumn": 165,
+        "endLine": 14,
+        "endColumn": 165,
+        "parentID": -1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "mode",
+        "id": 72,
+        "entityType": "Parameter Variable",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/util.h",
+        "startLine": 14,
+        "startColumn": 174,
+        "endLine": 14,
+        "endColumn": 174,
+        "parentID": -1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "demo::Base::aggregate",
+        "id": 73,
+        "entityType": "Function",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/util.h",
+        "startLine": 14,
+        "startColumn": 116,
+        "endLine": 14,
+        "endColumn": 116,
+        "parentID": 66,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/config.h",
+        "id": 74,
+        "entityType": "File",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/config.h",
+        "startLine": -1,
+        "startColumn": -1,
+        "endLine": -1,
+        "endColumn": -1,
+        "parentID": -1,
+        "scale": -1
+      },
+      {
+        "qualifiedName": "DEMO_FACTOR",
+        "id": 75,
+        "entityType": "Macro",
+        "entityFile": "/data/data_public/riverbag/C4Gen/test_projects/test_cpp_project/include/config.h",
+        "startLine": 3,
+        "startColumn": 14,
+        "endLine": 3,
+        "endColumn": 14,
+        "parentID": 74,
+        "scale": -1
+      }
+    ],
+    "relations": [
+      {
+        "type": "Call",
+        "src": 13,
+        "dest": 34
+      },
+      {
+        "type": "Call",
+        "src": 13,
+        "dest": 34
+      },
+      {
+        "type": "Call",
+        "src": 20,
+        "dest": 13
+      },
+      {
+        "type": "Call",
+        "src": 20,
+        "dest": 13
+      },
+      {
+        "type": "Call",
+        "src": 20,
+        "dest": 13
+      },
+      {
+        "type": "Call",
+        "src": 20,
+        "dest": 13
+      },
+      {
+        "type": "Call",
+        "src": 20,
+        "dest": 40
+      },
+      {
+        "type": "Call",
+        "src": 20,
+        "dest": 40
+      },
+      {
+        "type": "Call",
+        "src": 40,
+        "dest": 39
+      },
+      {
+        "type": "Call",
+        "src": 40,
+        "dest": 39
+      },
+      {
+        "type": "Call",
+        "src": 40,
+        "dest": 39
+      },
+      {
+        "type": "Define",
+        "src": 0,
+        "dest": 1
+      },
+      {
+        "type": "Define",
+        "src": 1,
+        "dest": 4
+      },
+      {
+        "type": "Define",
+        "src": 1,
+        "dest": 5
+      },
+      {
+        "type": "Define",
+        "src": 1,
+        "dest": 8
+      },
+      {
+        "type": "Define",
+        "src": 1,
+        "dest": 13
+      },
+      {
+        "type": "Define",
+        "src": 1,
+        "dest": 19
+      },
+      {
+        "type": "Define",
+        "src": 1,
+        "dest": 30
+      },
+      {
+        "type": "Define",
+        "src": 1,
+        "dest": 34
+      },
+      {
+        "type": "Define",
+        "src": 1,
+        "dest": 36
+      },
+      {
+        "type": "Define",
+        "src": 1,
+        "dest": 40
+      },
+      {
+        "type": "Define",
+        "src": 1,
+        "dest": 44
+      },
+      {
+        "type": "Define",
+        "src": 1,
+        "dest": 55
+      },
+      {
+        "type": "Define",
+        "src": 1,
+        "dest": 66
+      },
+      {
+        "type": "Define",
+        "src": 9,
+        "dest": 1
+      },
+      {
+        "type": "Define",
+        "src": 13,
+        "dest": 14
+      },
+      {
+        "type": "Define",
+        "src": 13,
+        "dest": 15
+      },
+      {
+        "type": "Define",
+        "src": 13,
+        "dest": 16
+      },
+      {
+        "type": "Define",
+        "src": 13,
+        "dest": 17
+      },
+      {
+        "type": "Define",
+        "src": 18,
+        "dest": 1
+      },
+      {
+        "type": "Define",
+        "src": 18,
+        "dest": 27
+      },
+      {
+        "type": "Define",
+        "src": 19,
+        "dest": 20
+      },
+      {
+        "type": "Define",
+        "src": 20,
+        "dest": 21
+      },
+      {
+        "type": "Define",
+        "src": 20,
+        "dest": 22
+      },
+      {
+        "type": "Define",
+        "src": 20,
+        "dest": 23
+      },
+      {
+        "type": "Define",
+        "src": 20,
+        "dest": 24
+      },
+      {
+        "type": "Define",
+        "src": 20,
+        "dest": 25
+      },
+      {
+        "type": "Define",
+        "src": 20,
+        "dest": 26
+      },
+      {
+        "type": "Define",
+        "src": 27,
+        "dest": 28
+      },
+      {
+        "type": "Define",
+        "src": 29,
+        "dest": 1
+      },
+      {
+        "type": "Define",
+        "src": 35,
+        "dest": 1
+      },
+      {
+        "type": "Define",
+        "src": 36,
+        "dest": 37
+      },
+      {
+        "type": "Define",
+        "src": 40,
+        "dest": 41
+      },
+      {
+        "type": "Define",
+        "src": 42,
+        "dest": 1
+      },
+      {
+        "type": "Define",
+        "src": 43,
+        "dest": 1
+      },
+      {
+        "type": "Define",
+        "src": 44,
+        "dest": 45
+      },
+      {
+        "type": "Define",
+        "src": 44,
+        "dest": 46
+      },
+      {
+        "type": "Define",
+        "src": 55,
+        "dest": 59
+      },
+      {
+        "type": "Define",
+        "src": 55,
+        "dest": 64
+      },
+      {
+        "type": "Define",
+        "src": 65,
+        "dest": 1
+      },
+      {
+        "type": "Define",
+        "src": 66,
+        "dest": 67
+      },
+      {
+        "type": "Define",
+        "src": 67,
+        "dest": 68
+      },
+      {
+        "type": "Define",
+        "src": 67,
+        "dest": 69
+      },
+      {
+        "type": "Set",
+        "src": 8,
+        "dest": 6
+      },
+      {
+        "type": "Set",
+        "src": 13,
+        "dest": 14
+      },
+      {
+        "type": "Set",
+        "src": 13,
+        "dest": 15
+      },
+      {
+        "type": "Set",
+        "src": 13,
+        "dest": 12
+      },
+      {
+        "type": "Set",
+        "src": 20,
+        "dest": 23
+      },
+      {
+        "type": "Extend",
+        "src": 55,
+        "dest": 44
+      },
+      {
+        "type": "Use",
+        "src": 8,
+        "dest": 64
+      },
+      {
+        "type": "Use",
+        "src": 13,
+        "dest": 17
+      },
+      {
+        "type": "Use",
+        "src": 13,
+        "dest": 15
+      },
+      {
+        "type": "Use",
+        "src": 13,
+        "dest": 14
+      },
+      {
+        "type": "Use",
+        "src": 20,
+        "dest": 24
+      },
+      {
+        "type": "Include",
+        "src": 42,
+        "dest": 43
+      },
+      {
+        "type": "Parameter",
+        "src": 4,
+        "dest": 3
+      },
+      {
+        "type": "Parameter",
+        "src": 8,
+        "dest": 7
+      },
+      {
+        "type": "Parameter",
+        "src": 13,
+        "dest": 10
+      },
+      {
+        "type": "Parameter",
+        "src": 13,
+        "dest": 11
+      },
+      {
+        "type": "Parameter",
+        "src": 13,
+        "dest": 12
+      },
+      {
+        "type": "Parameter",
+        "src": 34,
+        "dest": 31
+      },
+      {
+        "type": "Parameter",
+        "src": 34,
+        "dest": 33
+      },
+      {
+        "type": "Parameter",
+        "src": 40,
+        "dest": 38
+      },
+      {
+        "type": "Parameter",
+        "src": 40,
+        "dest": 39
+      },
+      {
+        "type": "Parameter",
+        "src": 50,
+        "dest": 49
+      },
+      {
+        "type": "Parameter",
+        "src": 54,
+        "dest": 51
+      },
+      {
+        "type": "Parameter",
+        "src": 54,
+        "dest": 53
+      },
+      {
+        "type": "Parameter",
+        "src": 58,
+        "dest": 57
+      },
+      {
+        "type": "Parameter",
+        "src": 63,
+        "dest": 62
+      },
+      {
+        "type": "Parameter",
+        "src": 73,
+        "dest": 70
+      },
+      {
+        "type": "Parameter",
+        "src": 73,
+        "dest": 71
+      },
+      {
+        "type": "Parameter",
+        "src": 73,
+        "dest": 72
+      },
+      {
+        "type": "Contain",
+        "src": 43,
+        "dest": 44
+      },
+      {
+        "type": "Contain",
+        "src": 42,
+        "dest": 55
+      },
+      {
+        "type": "Contain",
+        "src": 65,
+        "dest": 66
+      },
+      {
+        "type": "Contain",
+        "src": 44,
+        "dest": 45
+      },
+      {
+        "type": "Contain",
+        "src": 44,
+        "dest": 46
+      },
+      {
+        "type": "Contain",
+        "src": 55,
+        "dest": 59
+      },
+      {
+        "type": "Contain",
+        "src": 55,
+        "dest": 64
+      },
+      {
+        "type": "Override",
+        "src": 60,
+        "dest": 47
+      },
+      {
+        "type": "Override",
+        "src": 63,
+        "dest": 50
+      }
+    ]
+  }
+]
