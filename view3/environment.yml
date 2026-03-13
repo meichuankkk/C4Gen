@@ -1,0 +1,14 @@
+name: myproject
+channels:
+  - conda-forge
+  - pytorch
+  - defaults
+dependencies:
+  - python=3.12
+  - numpy
+  - torch
+  - transformers
+  - tqdm
+  - jina
+  - sentence-transformers
+  - fire
