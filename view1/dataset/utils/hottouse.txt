@@ -1,0 +1,1 @@
+python /data/data_public/riverbag/C4Gen/view1/dataset/utils/create_subset.py --projects_json /data/data_public/riverbag/C4Gen/view1/dataset/three_language_projects.json --output_dir /data/data_public/riverbag/C4Gen/view1/dataset/newsubset --sample_size 6500

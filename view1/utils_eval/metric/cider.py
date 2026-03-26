@@ -1,5 +1,5 @@
 
-from eval_utils.metric.cider_scorer import CiderScorer
+from utils_eval.metric.cider_scorer import CiderScorer
 
 
 class Cider:

@@ -1,0 +1,49 @@
+{
+  "java_projects": [
+    "beam",
+    "camel",
+    "cassandra",
+    "dolphinscheduler",
+    "doris",
+    "druid",
+    "dubbo",
+    "dubbo-spring-boot-project",
+    "flink",
+    "flink-cdc",
+    "hadoop",
+    "hbase",
+    "hertzbeat",
+    "hive",
+    "hudi",
+    "iceberg",
+    "incubator-kie-drools",
+    "incubator-seata",
+    "incubator-weex",
+    "iotdb",
+    "jmeter",
+    "kafka",
+    "pinot",
+    "pulsar",
+    "rocketmq",
+    "seatunnel",
+    "shardingsphere",
+    "shardingsphere-elasticjob",
+    "shenyu",
+    "skywalking",
+    "storm",
+    "tomcat",
+    "zeppelin",
+    "zookeeper"
+  ],
+  "python_projects": [
+    "airflow",
+    "tvm"
+  ],
+  "cpp_projects": [
+    "arrow",
+    "brpc",
+    "mesos",
+    "mxnet",
+    "thrift"
+  ]
+}

@@ -1,0 +1,3 @@
+view1/utils_eval/sbert/models/
+**/__pycache__/
+*.pyc
