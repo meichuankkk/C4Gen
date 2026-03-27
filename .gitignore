@@ -1,3 +1,12 @@
 view1/utils_eval/sbert/models/
 **/__pycache__/
 *.pyc
+view2/deepseek_api.txt
+view2/docs
+view2/enre
+view2/metrics
+view2/test
+view2/test_data
+view2/test_entry
+view2/Enre_Readme.md
+view2/cursor_scripts/download_repository_message.py
