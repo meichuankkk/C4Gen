@@ -25,6 +25,8 @@ def get_client():
     if client is None:
         api_key = os.getenv("OPENAI_API_KEY")
         base_url = os.getenv("OPENAI_BASE_URL")
+        print(f"base_url: {base_url}")
+        input("Press Enter to continue...")
         if not api_key or not base_url:
             raise ValueError(
                 "OPENAI_API_KEY and/or OPENAI_BASE_URL environment variables not set. "
@@ -146,13 +148,13 @@ if __name__ == "__main__":
     parser.add_argument(
         "--workers",
         type=int,
-        default=5,
-        help="Number of concurrent tasks (default: 5).",
+        default=10,
+        help="Number of concurrent tasks (default: 10).",
     )
     parser.add_argument(
         "--model",
         type=str,
-        default="deepseek-chat",
+        default="deepseek-v3.2-128k",
         help="The name of the model to use (e.g., deepseek-chat).",
     )
     args = parser.parse_args()

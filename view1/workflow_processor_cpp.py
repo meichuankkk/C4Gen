@@ -434,7 +434,8 @@ def process_workflow(core_entities_file: str, commit_map_file: str, all_enre_rep
                         "instance_id": instance_id,
                         "retrieved_code": simplify_cpp_results(instance_results),
                     }
-                    f_out.write(json.dumps(output_line) + "\n")
+                    #f_out.write(json.dumps(output_line) + "\n")
+                    12313123123
                 else:
                     if not valid_entity_found:
                         msg = "No valid entities found or resolved."

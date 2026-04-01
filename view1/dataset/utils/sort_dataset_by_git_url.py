@@ -31,11 +31,11 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--input_jsonl",
-        default="/data/data_public/riverbag/C4Gen/dataset/cpp_subset_5000.jsonl",
+        default="/data/data_public/riverbag/C4Gen/view1/dataset/newsubset_1500/python_subset_1500.jsonl",
     )
     parser.add_argument(
         "--output_jsonl",
-        default="/data/data_public/riverbag/C4Gen/dataset/cpp_subset_5000_sorted_by_git_url.jsonl",
+        default="/data/data_public/riverbag/C4Gen/view1/dataset/newsubset_1500/python_subset_1500_sorted_by_git_url.jsonl",
     )
     args = parser.parse_args()
 
