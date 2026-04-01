@@ -205,7 +205,7 @@ def retrieve_code_context(entity_relations: dict, enre_report_path: str, project
                 method_location = method_data.get('location', {})
                 method_start_line = method_location.get('startLine')
                 if method_start_line:
-                    snippet = get_code_snippet(method_file_path, method_start_line, context_lines=0)
+                    snippet = get_code_snippet(method_file_path, method_start_line, context_lines=3) #Test Fix
                     info['contained_methods_snippets'].append({
                         'qualifiedName': method_data.get('qualifiedName'),
                         'code_snippet': snippet

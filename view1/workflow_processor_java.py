@@ -9,52 +9,184 @@ from tqdm import tqdm
 
 # Add the parent directory to sys.path to allow imports from java_utils
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'utils_relatedcode'))
 
 from java_utils.relation_analyzer import analyze_java_enre_report
 from java_utils.code_retriever import retrieve_code_context, get_code_snippet
 
-def generate_qualified_name(entity: dict, all_qnames: list[str]) -> str | None:
+def _normalize_rel_path(path: str | None) -> str:
+    if not path:
+        return ""
+    normalized = path.replace('\\', '/').strip()
+    while '//' in normalized:
+        normalized = normalized.replace('//', '/')
+    if normalized.startswith('./'):
+        normalized = normalized[2:]
+    return normalized
+
+def _path_matches(entity_path: str | None, enre_file_path: str | None) -> bool:
     """
-    Finds the correct qualified name for an entity by matching its file-based path
-    against a list of all known qualified names from the ENRE report.
+    Strict path matching with format normalization.
+    Supports exact match and segment-safe suffix match to tolerate different roots.
+    """
+    normalized_entity = _normalize_rel_path(entity_path)
+    normalized_enre = _normalize_rel_path(enre_file_path)
+    if not normalized_entity or not normalized_enre:
+        return False
+    if normalized_entity == normalized_enre:
+        return True
+    return normalized_enre.endswith('/' + normalized_entity)
+
+def _extract_method_name_from_qn(qualified_name: str | None) -> str:
+    if not qualified_name:
+        return ""
+    tail = qualified_name.rsplit('.', 1)[-1]
+    return tail.split('(', 1)[0]
+
+def _extract_type_name_from_qn(qualified_name: str | None) -> str:
+    if not qualified_name:
+        return ""
+    tail = qualified_name.rsplit('.', 1)[-1]
+    tail = tail.split('(', 1)[0]
+    return tail.split('$')[-1]
+
+def _class_name_matches(core_class_name: str, parent_node: dict) -> bool:
+    """
+    Strict-equivalence class name matching (not fuzzy similarity).
+    """
+    if not core_class_name:
+        return False
+    parent_qn = parent_node.get('qualifiedName', '')
+    parent_simple_name = _extract_type_name_from_qn(parent_qn)
+    return (
+        core_class_name == parent_simple_name
+        or core_class_name == parent_qn
+        or parent_qn.endswith('.' + core_class_name)
+    )
+
+def generate_qualified_names(entity: dict, enre_data: dict) -> tuple[list[str], str | None]:
+    """
+    Resolves the exact ENRE qualifiedName for a core entity using strict structural
+    matching on category, file path, and declared names.
+    No fuzzy/similarity matching is used.
+
+    Returns:
+        tuple[list[str], str | None]:
+        - one or more qualified names when resolved
+        - warning message when resolution fails or is ambiguous, else None
     """
     entity_type = entity.get("type")
     path = entity.get("path")
     name = entity.get("name")
 
     if not all([path, name, entity_type]):
-        print(f"Warning: Skipping entity due to missing 'path', 'name', or 'type'. Entity: {entity}")
-        return None
+        warning_msg = f"Skipping entity due to missing 'path', 'name', or 'type'. Entity: {entity}"
+        print(f"Warning: {warning_msg}")
+        return [], warning_msg
 
-    # 1. Generate the long, potentially incorrect qualified name from the file path.
-    dir_path = os.path.dirname(path)
+    variables = enre_data.get('variables', [])
+    id_to_node = {var.get('id'): var for var in variables if var.get('id') is not None}
+
+    if entity_type == 'class':
+        class_candidates = []
+        for var in variables:
+            if var.get('category') != 'Class':
+                continue
+            if not _path_matches(path, var.get('File')):
+                continue
+            candidate_name = _extract_type_name_from_qn(var.get('qualifiedName'))
+            if candidate_name == name:
+                class_candidates.append(var)
+
+        if len(class_candidates) == 1:
+            return [class_candidates[0].get('qualifiedName')], None
+
+        if len(class_candidates) > 1:
+            warning_msg = f"Ambiguous class mapping for entity (multiple exact matches): {entity}"
+            candidate_qns = [c.get('qualifiedName') for c in class_candidates if c.get('qualifiedName')]
+            print(f"Warning: {warning_msg}")
+            return candidate_qns, warning_msg
+        else:
+            warning_msg = f"Could not find class entity in ENRE report: {entity}"
+        print(f"Warning: {warning_msg}")
+        return [], warning_msg
+
     if entity_type == 'function':
         class_name = entity.get("class_name")
+
+        method_candidates = []
+        for var in variables:
+            if var.get('category') != 'Method':
+                continue
+            if not _path_matches(path, var.get('File')):
+                continue
+            method_name = _extract_method_name_from_qn(var.get('qualifiedName'))
+            if method_name != name:
+                continue
+
+            parent_node = id_to_node.get(var.get('parentId'))
+            if not parent_node:
+                continue
+            if parent_node.get('category') not in ['Class', 'Interface']:
+                continue
+            if class_name and not _class_name_matches(class_name, parent_node):
+                continue
+
+            method_candidates.append(var)
+
+        # class_name is missing in some core entities. In this case we keep strict
+        # resolution by requiring a unique match in the same file+method scope.
         if not class_name:
-            print(f"Warning: Skipping function entity due to missing 'class_name'. Entity: {entity}")
-            return None
-        long_name_str = f"{dir_path}/{class_name}.{name}"
-    elif entity_type == 'class':
-        long_name_str = f"{dir_path}/{name}"
-    else:
-        return None
+            anonymous_candidates = []
+            for candidate in method_candidates:
+                parent_node = id_to_node.get(candidate.get('parentId'), {})
+                parent_qn = parent_node.get('qualifiedName', '')
+                parent_simple_name = _extract_type_name_from_qn(parent_qn)
+                if (
+                    parent_simple_name == 'Anonymous_Class'
+                    or parent_qn.endswith('.Anonymous_Class')
+                    or '$' in parent_qn
+                ):
+                    anonymous_candidates.append(candidate)
 
-    long_qualified_name = long_name_str.replace('/', '.')
+            if len(anonymous_candidates) == 1:
+                return [anonymous_candidates[0].get('qualifiedName')], None
 
-    # 2. Find the best matching real qualified name from the list of all QNs.
-    # The real QN should be a suffix of the long, path-based QN.
-    # We sort by length descending to find the longest possible match first,
-    # which is the most specific and correct one.
-    
-    # Create a copy and sort it
-    sorted_qnames = sorted(all_qnames, key=len, reverse=True)
+            if len(anonymous_candidates) > 1:
+                warning_msg = f"Ambiguous function mapping for entity (multiple anonymous class matches): {entity}"
+                candidate_qns = [c.get('qualifiedName') for c in anonymous_candidates if c.get('qualifiedName')]
+                print(f"Warning: {warning_msg}")
+                return candidate_qns, warning_msg
 
-    for qn in sorted_qnames:
-        if long_qualified_name.endswith(qn):
-            return qn  # The first match is the longest and best one.
+            if len(method_candidates) == 1:
+                return [method_candidates[0].get('qualifiedName')], None
 
-    print(f"Warning: Could not find a matching qualified name for entity: {entity}")
-    return None
+            if len(method_candidates) > 1:
+                warning_msg = f"Ambiguous function mapping for entity (missing class_name and multiple file-level method matches): {entity}"
+                candidate_qns = [c.get('qualifiedName') for c in method_candidates if c.get('qualifiedName')]
+                print(f"Warning: {warning_msg}")
+                return candidate_qns, warning_msg
+            else:
+                warning_msg = f"Could not find function entity in ENRE report (missing class_name): {entity}"
+            print(f"Warning: {warning_msg}")
+            return [], warning_msg
+
+        if len(method_candidates) == 1:
+            return [method_candidates[0].get('qualifiedName')], None
+
+        if len(method_candidates) > 1:
+            warning_msg = f"Ambiguous function mapping for entity (overloads or duplicates): {entity}"
+            candidate_qns = [c.get('qualifiedName') for c in method_candidates if c.get('qualifiedName')]
+            print(f"Warning: {warning_msg}")
+            return candidate_qns, warning_msg
+        else:
+            warning_msg = f"Could not find function entity in ENRE report: {entity}"
+        print(f"Warning: {warning_msg}")
+        return [], warning_msg
+
+    warning_msg = f"Unsupported entity type '{entity_type}'. Entity: {entity}"
+    print(f"Warning: {warning_msg}")
+    return [], warning_msg
 
 def get_overridden_method_context(function_qualified_name: str, enre_data: dict, project_root: str) -> list:
     """
@@ -86,8 +218,19 @@ def get_overridden_method_context(function_qualified_name: str, enre_data: dict,
     class_relations = class_relations_list[0]
     #print(f"Class relations for {class_qn}: {class_relations}")
 
-    # 3. Create a lookup map from the pre-loaded ENRE data.
-    enre_node_map = {var['qualifiedName']: var for var in enre_data.get('variables', [])}
+    # 3. Create lookup maps from the pre-loaded ENRE data.
+    variables = enre_data.get('variables', [])
+    enre_node_map = {var['qualifiedName']: var for var in variables if var.get('qualifiedName')}
+    parent_id_to_methods = {}
+    for var in variables:
+        if var.get('category') != 'Method':
+            continue
+        parent_id = var.get('parentId')
+        if parent_id is None:
+            continue
+        if parent_id not in parent_id_to_methods:
+            parent_id_to_methods[parent_id] = []
+        parent_id_to_methods[parent_id].append(var)
 
     # 4. Check each parent class or implemented interface for an overridden method.
     all_parents = chain(class_relations.get("inherits_from", []), class_relations.get("implements", []))
@@ -96,10 +239,19 @@ def get_overridden_method_context(function_qualified_name: str, enre_data: dict,
         if not parent_qn:
             continue
         
-        overridden_method_qn = f"{parent_qn}.{function_name}"
-        target_node = enre_node_map.get(overridden_method_qn)
-        
-        if target_node:
+        parent_node = enre_node_map.get(parent_qn)
+        if not parent_node:
+            continue
+        parent_id = parent_node.get('id')
+        if parent_id is None:
+            continue
+
+        candidate_methods = parent_id_to_methods.get(parent_id, [])
+        for target_node in candidate_methods:
+            method_qn = target_node.get('qualifiedName', '')
+            if _extract_method_name_from_qn(method_qn) != function_name:
+                continue
+
             file_path = os.path.join(project_root, target_node.get('File', ''))
             location = target_node.get('location', {})
             start_line = location.get('startLine')
@@ -110,7 +262,7 @@ def get_overridden_method_context(function_qualified_name: str, enre_data: dict,
                 if snippet:
                     overridden_contexts.append({
                         "parent_qualifiedName": parent_qn,
-                        "method_qualifiedName": overridden_method_qn,
+                        "method_qualifiedName": method_qn,
                         "code_snippet": snippet,
                         "file_path": target_node.get('File', ''),
                         "location": location
@@ -222,6 +374,13 @@ def load_commit_map(commit_map_file: str) -> dict:
                     data = json.loads(line)
                     instance_id = data.get("instance_id")
                     commit_sha = data.get("commit_sha")
+
+                    # Handle cases where commit_sha is nested inside subset_entry (user-specified format)
+                    if not commit_sha and "subset_entry" in data:
+                        subset_entry = data.get("subset_entry")
+                        if isinstance(subset_entry, dict):
+                            commit_sha = subset_entry.get("commit_sha")
+
                     if instance_id and commit_sha:
                         commit_map[instance_id] = commit_sha
                 except json.JSONDecodeError:
@@ -292,14 +451,26 @@ def process_workflow(core_entities_file: str, commit_map_file: str, all_enre_rep
              open(error_report_file, 'w', encoding='utf-8') as f_err, \
              open(core_entities_file, 'r', encoding='utf-8') as f_in:
 
+            def write_instance_error(instance_id: str, condition: str, detail: str | None = None) -> None:
+                payload = {
+                    "instance_id": instance_id,
+                    "condition": condition,
+                }
+                if condition == "all_core_entities_not_retrieved":
+                    payload["error"] = "所有核心实体均未检索到"
+                elif condition == "retrieved_entities_without_related_code":
+                    payload["error"] = "存在核心实体被检索到，但是检索到的实体没有相关代码"
+                if detail:
+                    payload["detail"] = detail
+                f_err.write(json.dumps(payload, ensure_ascii=False) + '\n')
+
             # Loop through each line in the JSONL file with progress bar
             for line in tqdm(f_in, total=total_lines, desc="Processing Entities", unit="line"):
                 try:
                     instance = json.loads(line)
                 except json.JSONDecodeError:
                     error_msg = f"Skipping malformed JSON line in {core_entities_file}: {line.strip()}"
-                    # print(f"Warning: {error_msg}") # Reduce noise in progress bar
-                    f_err.write(json.dumps({"error": error_msg, "line": line.strip()}) + '\n')
+                    print(f"Warning: {error_msg}")
                     continue
 
                 instance_id = instance.get('instance_id')
@@ -312,8 +483,7 @@ def process_workflow(core_entities_file: str, commit_map_file: str, all_enre_rep
 
                 if not instance_id:
                      error_msg = f"Skipping instance due to missing 'instance_id'. Instance: {instance}"
-                     # print(f"Warning: {error_msg}")
-                     f_err.write(json.dumps({"instance_id": "unknown", "error": error_msg}) + '\n')
+                     print(f"Warning: {error_msg}")
                      continue
                 
                 if core_entities is None: # core_entities can be empty list, but not None if we want to process it properly (or maybe empty list is also invalid? user said empty list is error)
@@ -323,28 +493,28 @@ def process_workflow(core_entities_file: str, commit_map_file: str, all_enre_rep
                 if not core_entities and not isinstance(core_entities, list):
                      # Missing core_entities key or None
                      error_msg = "Missing 'core_entities' field."
-                     # print(f"Warning: {error_msg} Instance: {instance_id}")
-                     f_err.write(json.dumps({"instance_id": instance_id, "error": error_msg}) + '\n')
+                     print(f"Warning: {error_msg} Instance: {instance_id}")
+                     write_instance_error(instance_id, "all_core_entities_not_retrieved", error_msg)
                      continue
                 
                 if len(core_entities) == 0:
                      error_msg = "'core_entities' is empty."
-                     # print(f"Warning: {error_msg} Instance: {instance_id}")
-                     f_err.write(json.dumps({"instance_id": instance_id, "error": error_msg}) + '\n')
+                     print(f"Warning: {error_msg} Instance: {instance_id}")
+                     write_instance_error(instance_id, "all_core_entities_not_retrieved", error_msg)
                      continue
 
                 if not commit_sha:
                      error_msg = f"Missing 'commit_sha' for instance_id: {instance_id} in commit map file."
-                     # print(f"Warning: {error_msg}")
-                     f_err.write(json.dumps({"instance_id": instance_id, "error": error_msg}) + '\n')
+                     print(f"Warning: {error_msg}")
+                     write_instance_error(instance_id, "all_core_entities_not_retrieved", error_msg)
                      continue
 
                 # Derive project_root from instance_id
                 parts = instance_id.split('_')
                 if len(parts) < 3:
                     error_msg = f"Invalid instance_id format '{instance_id}'. Cannot derive project root."
-                    # print(f"Warning: {error_msg}")
-                    f_err.write(json.dumps({"instance_id": instance_id, "error": error_msg}) + '\n')
+                    print(f"Warning: {error_msg}")
+                    write_instance_error(instance_id, "all_core_entities_not_retrieved", error_msg)
                     continue
                 
                 repo_name = "_".join(parts[1:-1])
@@ -358,8 +528,8 @@ def process_workflow(core_entities_file: str, commit_map_file: str, all_enre_rep
                     pass
                 else:
                     error_msg = f"Failed to checkout commit {commit_sha} in {project_root}"
-                    # print(f"Error: {error_msg}")
-                    f_err.write(json.dumps({"instance_id": instance_id, "error": error_msg}) + '\n')
+                    print(f"Error: {error_msg}")
+                    write_instance_error(instance_id, "all_core_entities_not_retrieved", error_msg)
                     continue
                 
                 # Try to find the report file, first with the simple name, then with the old suffix.
@@ -367,9 +537,9 @@ def process_workflow(core_entities_file: str, commit_map_file: str, all_enre_rep
                 if not os.path.exists(enre_report_file):
                     enre_report_file = os.path.join(all_enre_report_dir, f"{instance_id}_enre_report.json")
                     if not os.path.exists(enre_report_file):
-                        # print(f"Warning: ENRE report for instance '{instance_id}' not found. Checked for '{instance_id}.json' and '{instance_id}_enre_report.json'. Skipping.")
                         error_msg = f"ENRE report for instance '{instance_id}' not found. Checked for '{instance_id}.json' and '{instance_id}_enre_report.json'. Skipping."
-                        f_err.write(json.dumps({"instance_id": instance_id, "error": error_msg}) + '\n')
+                        print(f"Warning: {error_msg}")
+                        write_instance_error(instance_id, "all_core_entities_not_retrieved", error_msg)
                         continue
 
                 # Load the ENRE report once per instance for efficiency, with encoding fallback.
@@ -382,53 +552,67 @@ def process_workflow(core_entities_file: str, commit_map_file: str, all_enre_rep
                             enre_data = json.load(f)
                     except (IOError, json.JSONDecodeError) as e:
                         error_msg = f"Error: Could not read or parse ENRE report '{enre_report_file}' (latin-1 fallback): {e}"
-                        f_err.write(json.dumps({"instance_id": instance_id, "error": error_msg}) + '\n')
+                        print(error_msg)
+                        write_instance_error(instance_id, "all_core_entities_not_retrieved", error_msg)
                         continue
                 except (IOError, json.JSONDecodeError) as e:
-                    # print(f"Error: Could not read or parse ENRE report '{enre_report_file}': {e}")
                     error_msg = f"Error: Could not read or parse ENRE report '{enre_report_file}': {e}"
-                    f_err.write(json.dumps({"instance_id": instance_id, "error": error_msg}) + '\n')
+                    print(error_msg)
+                    write_instance_error(instance_id, "all_core_entities_not_retrieved", error_msg)
                     continue
                 
-                all_qnames = [var.get('qualifiedName') for var in enre_data.get('variables', []) if var.get('qualifiedName')]
+                enre_variables = enre_data.get('variables', [])
+                if not enre_variables:
+                     print(f"Warning: No variables found in ENRE report for instance '{instance_id}'.")
 
-                if not all_qnames:
-                     error_msg = f"No qualified names found in ENRE report for instance '{instance_id}'."
-                     f_err.write(json.dumps({"instance_id": instance_id, "error": error_msg}) + '\n')
-                     # Not continuing here because we might still find things, but it's suspicious.
-                     # Actually, if no qnames, generate_qualified_name will likely fail or return None.
-
-                valid_entity_found = False
+                supported_entities_count = 0
+                resolved_entities_count = 0
+                resolved_entities_with_code_count = 0
                 for entity in core_entities:
                     if entity.get('type') not in ['function', 'class']:
+                        print(f"Warning: Skipping unsupported core entity type '{entity.get('type')}' for instance '{instance_id}'.")
                         continue
 
-                    qualified_name = generate_qualified_name(entity, all_qnames)
-                    if not qualified_name:
-                        # Log this specific entity failure? Maybe too verbose.
-                        continue
+                    supported_entities_count += 1
+
+                    qualified_names, warning_msg = generate_qualified_names(entity, enre_data)
+                    if warning_msg:
+                        print(f"Warning: {warning_msg}")
                     
-                    # print(f"  - Analyzing entity: {qualified_name}")
-                    valid_entity_found = True
+                    # Log this specific entity failure? Maybe too verbose. Since we process it anyway, no need.
+                    
+                    # print(f"  - Analyzing entity candidates: {qualified_names}")
+                    if not qualified_names:
+                        instance_results.append({
+                            "instance_id": instance_id,
+                            "core_entity": entity,
+                            "qualified_name": None,
+                            "retrieved_context": {},
+                            "overridden_method_context": []
+                        })
+                        continue
 
-                    overridden_method_context = []
-                    if entity.get('type') == 'function':
-                        # print(f"    - Checking for overridden method for '{qualified_name}'")
-                        overridden_method_context = get_overridden_method_context(
-                            function_qualified_name=qualified_name,
-                            enre_data=enre_data, 
-                            project_root=project_root
+                    resolved_entities_count += 1
+                    entity_has_related_code = False
+
+                    for qualified_name in qualified_names:
+                        overridden_method_context = []
+                        if entity.get('type') == 'function':
+                            # print(f"    - Checking for overridden method for '{qualified_name}'")
+                            overridden_method_context = get_overridden_method_context(
+                                function_qualified_name=qualified_name,
+                                enre_data=enre_data,
+                                project_root=project_root
+                            )
+
+                        relations = analyze_java_enre_report(
+                            report_path=enre_report_file,
+                            target_qualified_name=qualified_name,
+                            enre_data=enre_data
                         )
 
-                    relations = analyze_java_enre_report(
-                        report_path=enre_report_file, 
-                        target_qualified_name=qualified_name,
-                        enre_data=enre_data
-                    )
-
-                    if not relations:
-                        # print(f"    - No relations found for '{qualified_name}'. Skipping code retrieval.")
-                        if overridden_method_context:
+                        if not relations:
+                            # Even if no relations, record this resolved candidate.
                             instance_results.append({
                                 "instance_id": instance_id,
                                 "core_entity": entity,
@@ -436,25 +620,37 @@ def process_workflow(core_entities_file: str, commit_map_file: str, all_enre_rep
                                 "retrieved_context": {},
                                 "overridden_method_context": overridden_method_context
                             })
-                        continue
+                            continue
 
-                    # print(f"    - Retrieving code context for '{qualified_name}'")
-                    augmented_relations = retrieve_code_context(
-                        entity_relations=relations[0],
-                        enre_report_path=enre_report_file,
-                        project_root=project_root
-                    )
+                        # print(f"    - Retrieving code context for '{qualified_name}'")
+                        augmented_relations = retrieve_code_context(
+                            entity_relations=relations[0],
+                            enre_report_path=enre_report_file,
+                            project_root=project_root
+                        )
 
-                    if augmented_relations:
-                        result_item = {
-                            "instance_id": instance_id,
-                            "core_entity": entity,
-                            "qualified_name": qualified_name,
-                            "retrieved_context": augmented_relations
-                        }
-                        if overridden_method_context:
-                            result_item["overridden_method_context"] = overridden_method_context
-                        instance_results.append(result_item)
+                        if augmented_relations:
+                            entity_has_related_code = True
+                            result_item = {
+                                "instance_id": instance_id,
+                                "core_entity": entity,
+                                "qualified_name": qualified_name,
+                                "retrieved_context": augmented_relations
+                            }
+                            if overridden_method_context:
+                                result_item["overridden_method_context"] = overridden_method_context
+                            instance_results.append(result_item)
+                        else:
+                            instance_results.append({
+                                "instance_id": instance_id,
+                                "core_entity": entity,
+                                "qualified_name": qualified_name,
+                                "retrieved_context": {},
+                                "overridden_method_context": overridden_method_context
+                            })
+
+                    if entity_has_related_code:
+                        resolved_entities_with_code_count += 1
                 
                 if instance_results:
                     simplified_data = simplify_results(instance_results)
@@ -462,16 +658,15 @@ def process_workflow(core_entities_file: str, commit_map_file: str, all_enre_rep
                         "instance_id": instance_id,
                         "retrieved_code": simplified_data
                     }
-                    f_out.write(json.dumps(output_line) + '\n')
+                    f_out.write(json.dumps(output_line, ensure_ascii=False) + '\n')
                     # print(f"  -> Processed and wrote results for instance '{instance_id}'")
-                else:
-                    # If we got here but have no results, it means either no core entities were valid, 
-                    # or no code context could be retrieved for them.
-                    if not valid_entity_found:
-                        error_msg = f"No valid entities found or resolved for instance '{instance_id}'."
-                    else:
-                         error_msg = f"Entities found but no code context retrieved for instance '{instance_id}'."
-                    f_err.write(json.dumps({"instance_id": instance_id, "error": error_msg}) + '\n')
+
+                if resolved_entities_count == 0:
+                    detail = f"supported_core_entities={supported_entities_count}, resolved_entities=0"
+                    write_instance_error(instance_id, "all_core_entities_not_retrieved", detail)
+                elif resolved_entities_with_code_count == 0:
+                    detail = f"resolved_entities={resolved_entities_count}, resolved_entities_with_code=0"
+                    write_instance_error(instance_id, "retrieved_entities_without_related_code", detail)
 
 
             print(f"\nWorkflow complete. All results saved in: {os.path.abspath(output_file)}")

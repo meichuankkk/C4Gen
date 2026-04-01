@@ -4,7 +4,7 @@
 
 ## 数据集说明
 
-数据集位于 `/data/data_public/riverbag/C4Gen_view1/dataset/subset` 文件夹下，包含 `jsonl` 格式的文件。每条 JSON 数据包含以下属性：
+数据集位于 `/dataset/subset` 文件夹下，包含 `jsonl` 格式的文件。每条 JSON 数据包含以下属性：
 
 - `git_url`: 仓库的 Git 地址
 - `owner`: 仓库所有者
@@ -26,12 +26,12 @@
 本步骤涉及代码仓库的本地准备以及 Java 项目的依赖关系分析。
 
 #### 1.1 克隆仓库
-首先，您需要自行根据数据集中的 `git_url` 将对应的仓库克隆到 `/data/data_public/riverbag/C4Gen_view1/dataset_repo` 对应的文件夹下。目前java项目已经克隆了一部分，python项目和c++项目的仓库还没有克隆。
+首先，您需要自行根据数据集中的 `git_url` 将对应的仓库克隆到 `dataset/repo/` 对应的文件夹下。目前java项目已经克隆了一部分，python项目和c++项目的仓库还没有克隆。
 
 **推荐指令：**
 使用浅克隆（Shallow Clone）以节省空间和时间：
 ```bash
-git clone --depth 1 <git_url> /data/data_public/riverbag/C4Gen_view1/dataset_repo/<repo_name>
+git clone --depth 1 <git_url> /dataset/repo/<repo_name>
 ```
 
 #### 1.2 下载特定提交
@@ -128,6 +128,22 @@ python /data/data_public/riverbag/C4Gen_view1/java_workflow_processor.py \
     --output_file /data/data_public/riverbag/C4Gen_view1/dataset/related_code_output.jsonl \
     --error_report_file /data/data_public/riverbag/C4Gen_view1/testINOut/workflow_errors.log
 ```
+python /root/autodl-tmp/view1/workflow_processor_java.py \
+    --core_entities_file /data/data_public/riverbag/C4Gen_view1/dataset/core_entities_output.jsonl \
+    --commit_map_file /data/data_public/riverbag/C4Gen_view1/dataset/subset/java_subset.jsonl \
+    --all_enre_report_dir /data/data_public/riverbag/C4Gen_view1/enre_py_reports/java_reports \
+    --all_repo_dir /data/data_public/riverbag/C4Gen_view1/dataset_repo/java_repo \
+    --output_file /data/data_public/riverbag/C4Gen_view1/dataset/related_code_output.jsonl \
+    --error_report_file /data/data_public/riverbag/C4Gen_view1/testINOut/workflow_errors.log
+
+
+
+
+
+
+
+
+
 **参数解释：**
 - `--core_entities_file`: 上一步生成的实体文件。
 - `--commit_map_file`: 包含 `instance_id` 和 `commit_sha` 映射的数据集文件。(这个文件请用/data/data_public/riverbag/C4Gen_view1/utils_relatedcode/extract_instance_ids.py这个文件对不同语言的数据集自行生成)

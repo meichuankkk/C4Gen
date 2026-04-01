@@ -91,6 +91,9 @@ def analyze_java_enre_report(report_path, target_qualified_name=None, enre_data=
             result['contains_methods'] = class_to_methods.get(node_id, [])
         elif category == 'Interface':
             result['inherits_from'] = []  # Interfaces extending this one (via Inherit)
+            # Keep schema compatible with inheritance write-path which may append
+            # to dest['subclasses'] for Class/Interface targets.
+            result['subclasses'] = []
             result['implemented_by'] = [] # Classes implementing this one
         
         analysis_results[node_id] = result
@@ -135,7 +138,7 @@ def analyze_java_enre_report(report_path, target_qualified_name=None, enre_data=
                     'qualifiedName': dest_node_info.get('qualifiedName', 'N/A'),
                     'File': dest_node_info.get('File', 'N/A')
                 })
-                analysis_results[dest_id]['subclasses'].append({
+                analysis_results[dest_id].setdefault('subclasses', []).append({
                     'id': src_id,
                     'qualifiedName': src_node_info.get('qualifiedName', 'N/A'),
                     'File': src_node_info.get('File', 'N/A')
