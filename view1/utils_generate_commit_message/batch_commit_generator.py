@@ -26,7 +26,7 @@ def get_client():
         api_key = os.getenv("OPENAI_API_KEY")
         base_url = os.getenv("OPENAI_BASE_URL")
         print(f"base_url: {base_url}")
-        input("Press Enter to continue...")
+        #input("Press Enter to continue...")
         if not api_key or not base_url:
             raise ValueError(
                 "OPENAI_API_KEY and/or OPENAI_BASE_URL environment variables not set. "

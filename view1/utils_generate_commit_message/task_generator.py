@@ -15,79 +15,43 @@ import json
 from fire import Fire
 
 # The system prompt defines the role and instructions for the model.
-SYSTEM_PROMPT_RELATED_CODE = '''You are an expert Software Engineer and Commit Message Generator.
-Your task is to generate a **concise, high-quality commit message** based on the provided code changes, core entities in code changes, and their specific related code context.
+SYSTEM_PROMPT_RELATED_CODE = """You are a developer, and your task is to write a concise commit message based on the code changes (in .diff format) in a commit, the core entities in those code changes, and related code context.
 
-inputs:
-1. **Git Diff**: The raw code changes.
-2. **Core Entities**: The specific classes/functions identified as the root cause of this change.
-3. **Relevant Code Context**:
-Pruned code snippets showing dependencies (callees), impacts (call-sites), or inheritance (parent definitions).
+## Input Format:
 
-4. **Output Constraint**:
-   - **NO** analysis or reasoning text in the output.
-   - Output **ONLY** the commit message wrapped in the specified tags.
+--- START OF CODE DIFF ---
+{QUERY_DIFF}
+--- END OF CODE DIFF ---
 
-Response Format:
-[start_of_message]
-commit message
-[end_of_message]
+--- START OF CORE ENTITIES ---
+{CORE_ENTITIES}
+--- END OF CORE ENTITIES ---
 
-E.g.
-[start_of_message]
-Fixed a bug in the user authentication flow
-[end_of_message]
+--- START OF RELEVANT CODE CONTEXT ---
+{RELEVANT_CODE}
+--- END OF RELEVANT CODE CONTEXT ---
 
-E.g.
-[start_of_message]
-Add new API endpoint for user registration
-[end_of_message]
+## Output Format:
 
-Input Data:
-<git_diff>
-{DIFF_TEXT}
-</git_diff>
+A concise commit message describing the code changes, wrapped in <message> </message> tags.
+E.g. <message>Fixed a bug in the user authentication flow</message>
+E.g. <message>feat(server): Add new API endpoint for user registration</message>
+"""
 
-<core_entities>
-{CORE_ENTITIES_JSON}
-</core_entities>
+SYSTEM_PROMPT_DIRECT = """You are a developer, and your task is to write a concise commit message based on the code changes (in .diff format) in a commit.
 
-<relevant_code_context>
-{RELEVANT_CODE_TEXT}
-</relevant_code_context>
+## Input Format:
 
-'''
+--- START OF CODE DIFF ---
+{QUERY_DIFF}
+--- END OF CODE DIFF ---
 
-SYSTEM_PROMPT_DIRECT = '''You are an expert Software Engineer and Commit Message Generator.
-Your task is to generate a **concise, high-quality commit message** based on the provided code changes.
+## Output Format:
 
-inputs:
-1. **Git Diff**: The code changes.
-
-4. **Output Constraint**:
-   - **NO** analysis or reasoning text in the output.
-   - Output **ONLY** the commit message wrapped in the specified tags.
-
-Response Format:
-[start_of_message]
-commit message
-[end_of_message]
-
-E.g.
-[start_of_message]
-Fixed a bug in the user authentication flow
-[end_of_message]
-
-E.g.
-[start_of_message]
-Add new API endpoint for user registration
-[end_of_message]
-
-Input Data:
-<git_diff>
-{DIFF_TEXT}
-</git_diff>
-'''
+A concise commit message describing the code changes, wrapped in <message> </message> tags.
+E.g. <message>Fixed a bug in the user authentication flow</message>
+E.g. <message>feat(server): Add new API endpoint for user registration</message>
+"""
 
 def load_jsonl_to_dict(file_path: str) -> dict:
     """Loads a JSONL file into a dictionary keyed by 'instance_id' for quick lookup."""
@@ -173,9 +137,9 @@ def create_tasks(
 
                     # Construct the user prompt using the provided template
                     user_prompt = (
-                        f"<git_diff>\n{data['diff']}\n</git_diff>\n\n"
-                        f"<core_entities>\n{core_entities_json}\n</core_entities>\n\n"
-                        f"<relevant_code_context>\n{relevant_code_text}\n</relevant_code_context>"
+                        f"--- START OF CODE DIFF ---\n{data['diff']}\n--- END OF CODE DIFF ---\n\n"
+                        f"--- START OF CORE ENTITIES ---\n{core_entities_json}\n--- END OF CORE ENTITIES ---\n\n"
+                        f"--- START OF RELEVANT CODE CONTEXT ---\n{relevant_code_text}\n--- END OF RELEVANT CODE CONTEXT ---"
                     )
                     system_prompt_content = SYSTEM_PROMPT_RELATED_CODE
                 
@@ -185,7 +149,7 @@ def create_tasks(
                         continue
 
                     user_prompt = (
-                         f"<git_diff>\n{data['diff']}\n</git_diff>"
+                        f"--- START OF CODE DIFF ---\n{data['diff']}\n--- END OF CODE DIFF ---"
                     )
                     system_prompt_content = SYSTEM_PROMPT_DIRECT
 

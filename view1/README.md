@@ -185,7 +185,8 @@ python /data/data_public/riverbag/C4Gen_view1/utils_generate_commit_message/batc
 
 **指令：**
 ```bash
-python /data/data_public/riverbag/C4Gen_view1/utils_eval/eval.py \
+cd C4Gen/view1
+python -m utils_eval.eval_view1
     --result_jsonl /data/data_public/riverbag/C4Gen_view1/dataset/generated_messages.jsonl \
     --output_cleaned_jsonl /data/data_public/riverbag/C4Gen_view1/dataset/eval_results_cleaned.jsonl
 ```

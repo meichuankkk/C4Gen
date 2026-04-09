@@ -1,0 +1,10 @@
+filename: /data/data_public/riverbag/C4Gen/results/view3/java/3018/results_similar_diff_message_3018.jsonl
+Evaluation Report for > deepseek-v3.2-128k <
+==============================
+BLEU           : 15.38
+ROUGE-L        : 25.78
+METEOR         : 26.22
+CIDEr          : 12.86
+SBERT Cosine   : 54.66
+==============================
+
