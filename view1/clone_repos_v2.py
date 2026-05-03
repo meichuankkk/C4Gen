@@ -9,19 +9,18 @@ def clone_repositories():
     
     # 所有的路径都基于这个目录
     target_dir = os.path.join(base_dir, 'dataset_repo')
-    dataset_dir = os.path.join(base_dir, 'dataset', 'subset')
+    dataset_dir = os.path.join(base_dir, 'dataset', 'dpsk_chat_core_entities_5000')
     
     if not os.path.exists(target_dir):
         os.makedirs(target_dir)
 
-    # Use glob to find all enriched core entities files
-    # 直接使用绝对路径进行匹配
-    search_pattern = os.path.join(dataset_dir, 'core_entities_java_nonempty_enriched.jsonl')
+    # Use glob to find C++ enriched core entities file.
+    search_pattern = os.path.join(dataset_dir, 'core_entities_cpp_nonempty_enriched.jsonl')
     files = glob.glob(search_pattern)
     
     if not files:
-         # Fallback to subset files if enriched not found
-        files = glob.glob(os.path.join(dataset_dir, 'java_subset.jsonl'))
+        print(f"Error: C++ core entities file not found under {dataset_dir}")
+        return
     
     print(f"Found input files: {files}")
 

@@ -144,8 +144,14 @@ def process_dataset(
             checkout_command = ["git", "checkout", commit_sha, "--force"]
             success, output = run_command(checkout_command, working_dir=repo_path)
             if not success:
-                write_error_log(error_log_path, instance_id, "Git Checkout", output)
-                continue
+                # On Windows, checkout may return non-zero because of unlink warnings
+                # even when HEAD already moved to the target commit.
+                verify_success, verify_output = run_command(["git", "rev-parse", "HEAD"], working_dir=repo_path)
+                if verify_success and verify_output.strip() == commit_sha:
+                    pass
+                else:
+                    write_error_log(error_log_path, instance_id, "Git Checkout", output)
+                    continue
 
             verify_command = ["git", "rev-parse", "HEAD"]
             verify_success, verify_output = run_command(verify_command, working_dir=repo_path)

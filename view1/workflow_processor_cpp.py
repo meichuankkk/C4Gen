@@ -66,101 +66,193 @@ def _normalize_cpp_variables(raw_data) -> list[dict]:
     return normalized
 
 
-def _collect_cpp_candidates(entity: dict) -> list[str]:
-    qn = entity.get("qualified_name") or entity.get("qualifiedName")
+def _path_matches(entity_path: str | None, enre_file_path: str | None) -> bool:
+    normalized_entity = _normalize_rel_path(entity_path)
+    normalized_enre = _normalize_rel_path(enre_file_path)
+    if not normalized_entity or not normalized_enre:
+        return False
+    if normalized_entity == normalized_enre:
+        return True
+    return normalized_enre.endswith("/" + normalized_entity)
+
+
+def _strip_template_suffix(name: str) -> str:
+    return re.sub(r"<.*>$", "", name)
+
+
+def _extract_cpp_tail_name(qualified_name: str | None) -> str:
+    if not qualified_name:
+        return ""
+    tail = re.split(r"::|\.", qualified_name)[-1]
+    return _strip_template_suffix(tail)
+
+
+def _extract_entity_name_tail(name: str | None) -> str:
+    if not name:
+        return ""
+    tail = re.split(r"::|\.", str(name))[-1]
+    return _strip_template_suffix(tail)
+
+
+def _canonical_cpp_symbol_name(name: str | None) -> str:
+    if not name:
+        return ""
+    token = _strip_template_suffix(str(name)).strip()
+    token = token.lstrip("_")
+    if token.startswith("arrow_"):
+        token = token[len("arrow_") :]
+    return token.lower()
+
+
+def _function_name_matches_qn(target_name: str, qualified_name: str) -> bool:
+    target_tail = _extract_entity_name_tail(target_name)
+    qn_tail = _extract_cpp_tail_name(qualified_name)
+    if not target_tail or not qn_tail:
+        return False
+
+    # Direct and common wrapper forms.
+    if qn_tail in {target_tail, f"_arrow_{target_tail}", f"_{target_tail}"}:
+        return True
+
+    # Canonical match ignores _arrow_ and leading underscores.
+    target_canon = _canonical_cpp_symbol_name(target_tail)
+    qn_canon = _canonical_cpp_symbol_name(qn_tail)
+    if target_canon and qn_canon == target_canon:
+        return True
+
+    # Allow wrapped tails like "compute__CallFunction" to match "CallFunction".
+    return bool(target_canon and qn_canon.endswith(target_canon))
+
+
+def _extract_scope_tokens(qualified_name: str | None) -> list[str]:
+    if not qualified_name:
+        return []
+    tokens = [_strip_template_suffix(t) for t in re.split(r"::|\.", qualified_name) if t]
+    return tokens
+
+
+def _class_anchor_matches_qn(class_name: str | None, qualified_name: str) -> bool:
+    if not class_name:
+        return True
+    anchor_tokens = _extract_scope_tokens(class_name)
+    qn_tokens = _extract_scope_tokens(qualified_name)
+    if not anchor_tokens or len(qn_tokens) < 2:
+        return False
+    # Exclude function tail token, only match in scope chain.
+    scope_tokens = qn_tokens[:-1]
+    scope_canon = {_canonical_cpp_symbol_name(t) for t in scope_tokens}
+    anchor_canon = {_canonical_cpp_symbol_name(t) for t in anchor_tokens}
+    return any(a and a in scope_canon for a in anchor_canon)
+
+
+def generate_cpp_qualified_names(entity: dict, variables: list[dict]) -> tuple[list[str], str | None]:
     entity_type = str(entity.get("type", "")).lower()
+    path = entity.get("path")
     name = entity.get("name")
+
+    if entity_type not in CPP_TYPE_TO_CATEGORY:
+        warning_msg = f"Unsupported entity type '{entity_type}'. Entity: {entity}"
+        print(f"Warning: {warning_msg}")
+        return [], warning_msg
+
+    if entity_type in {"function", "class", "struct", "union", "template", "namespace"} and not all([path, name]):
+        warning_msg = f"Skipping entity due to missing 'path' or 'name'. Entity: {entity}"
+        print(f"Warning: {warning_msg}")
+        return [], warning_msg
+
+    expected_category = CPP_TYPE_TO_CATEGORY[entity_type]
     class_name = entity.get("class_name")
-    path = _normalize_rel_path(entity.get("path"))
 
-    candidates = []
-    if isinstance(qn, str) and qn:
-        candidates.append(qn)
+    # File entity: strict path-based matching.
+    if entity_type == "file":
+        file_candidates = []
+        for var in variables:
+            if var.get("category") != expected_category:
+                continue
+            if _path_matches(path, var.get("File")):
+                qn = var.get("qualifiedName")
+                if qn:
+                    file_candidates.append(qn)
+        file_candidates = list(dict.fromkeys(file_candidates))
+        if len(file_candidates) == 1:
+            return file_candidates, None
+        if len(file_candidates) > 1:
+            warning_msg = f"Ambiguous file mapping for entity (multiple exact matches): {entity}"
+            print(f"Warning: {warning_msg}")
+            return file_candidates, warning_msg
+        warning_msg = f"Could not find file entity in ENRE report: {entity}"
+        print(f"Warning: {warning_msg}")
+        return [], warning_msg
 
-    if isinstance(name, str) and name:
-        candidates.append(name)
-        if class_name:
-            candidates.append(f"{class_name}::{name}")
-            candidates.append(f"{class_name}.{name}")
+    # Function entity: strict file+name matching, optional class_name disambiguation.
+    if entity_type == "function":
+        target_tail_name = _extract_entity_name_tail(name)
+        if not target_tail_name:
+            warning_msg = f"Could not infer function tail name from entity: {entity}"
+            print(f"Warning: {warning_msg}")
+            return [], warning_msg
 
-    if entity_type == "file" and path:
-        candidates.append(path)
-        candidates.append(os.path.basename(path))
+        anchor_matched = []
+        tail_and_path_matched = []
+        for var in variables:
+            if var.get("category") != expected_category:
+                continue
+            if not _path_matches(path, var.get("File")):
+                continue
+            qn = var.get("qualifiedName")
+            if not qn:
+                continue
+            if not _function_name_matches_qn(target_tail_name, qn):
+                continue
 
-    seen = set()
-    deduped = []
-    for item in candidates:
-        if item not in seen:
-            seen.add(item)
-            deduped.append(item)
-    return deduped
+            tail_and_path_matched.append(qn)
+            if _class_anchor_matches_qn(class_name, qn):
+                anchor_matched.append(qn)
 
+        # Prefer candidates satisfying class anchor (e.g. FileMetaData).
+        preferred = list(dict.fromkeys(anchor_matched)) if class_name else []
+        fallback = list(dict.fromkeys(tail_and_path_matched))
 
-def resolve_cpp_qualified_name(entity: dict, variables: list[dict]) -> str | None:
-    candidates = _collect_cpp_candidates(entity)
-    expected_category = CPP_TYPE_TO_CATEGORY.get(str(entity.get("type", "")).lower())
-    target_name = entity.get("name")
-    class_name = entity.get("class_name")
-    target_path = _normalize_rel_path(entity.get("path"))
+        if class_name and len(preferred) == 1:
+            return preferred, None
+        if class_name and len(preferred) > 1:
+            warning_msg = f"Ambiguous function mapping for entity (overloads or duplicates): {entity}"
+            print(f"Warning: {warning_msg}")
+            return preferred, warning_msg
+        if len(fallback) == 1:
+            return fallback, None
+        if len(fallback) > 1:
+            warning_msg = f"Ambiguous function mapping for entity (tail+path matched multiple candidates): {entity}"
+            print(f"Warning: {warning_msg}")
+            return fallback, warning_msg
+        warning_msg = f"Could not find function entity in ENRE report: {entity}"
+        print(f"Warning: {warning_msg}")
+        return [], warning_msg
 
-    qnames = [var.get("qualifiedName") for var in variables if isinstance(var.get("qualifiedName"), str) and var.get("qualifiedName")]
-
-    # First pass: exact match.
-    for cand in candidates:
-        if cand in qnames:
-            return cand
-
-    # Second pass: longest suffix match.
-    sorted_qnames = sorted(qnames, key=len, reverse=True)
-    for cand in candidates:
-        for qn in sorted_qnames:
-            if qn.endswith(cand):
-                return qn
-
-    # Third pass: score-based fallback using file/category/name hints.
-    best_qn = None
-    best_score = -1
-
+    # Class-like / namespace entity: strict file+simple-name matching.
+    target_tail_name = _extract_entity_name_tail(name)
+    type_candidates = []
     for var in variables:
+        if var.get("category") != expected_category:
+            continue
+        if not _path_matches(path, var.get("File")):
+            continue
         qn = var.get("qualifiedName")
         if not qn:
             continue
+        if _extract_cpp_tail_name(qn) == target_tail_name:
+            type_candidates.append(qn)
 
-        category = var.get("category")
-        if expected_category and category != expected_category:
-            continue
-
-        score = 0
-        file_path = _normalize_rel_path(var.get("File"))
-
-        if target_path and file_path:
-            if file_path == target_path:
-                score += 350
-            elif file_path.endswith("/" + target_path):
-                score += 300
-            elif target_path.endswith("/" + file_path):
-                score += 180
-
-        if target_name:
-            tail = re.split(r"::|\.", qn)[-1]
-            if tail == target_name:
-                score += 220
-            if qn.endswith("::" + target_name):
-                score += 180
-            if qn.endswith("." + target_name):
-                score += 120
-
-        if class_name and target_name:
-            if qn.endswith(f"{class_name}::{target_name}"):
-                score += 320
-            if qn.endswith(f".{class_name}.{target_name}"):
-                score += 180
-
-        if score > best_score:
-            best_score = score
-            best_qn = qn
-
-    return best_qn if best_score > 0 else None
+    type_candidates = list(dict.fromkeys(type_candidates))
+    if len(type_candidates) == 1:
+        return type_candidates, None
+    if len(type_candidates) > 1:
+        warning_msg = f"Ambiguous {entity_type} mapping for entity (multiple exact matches): {entity}"
+        print(f"Warning: {warning_msg}")
+        return type_candidates, warning_msg
+    warning_msg = f"Could not find {entity_type} entity in ENRE report: {entity}"
+    print(f"Warning: {warning_msg}")
+    return [], warning_msg
 
 
 def simplify_cpp_results(results: list) -> list:
@@ -259,9 +351,14 @@ def load_commit_map(commit_map_file: str) -> dict:
                 try:
                     data = json.loads(line)
                 except json.JSONDecodeError:
+                    print(f"Warning: Skipping malformed JSON line in commit map file: {line.strip()}")
                     continue
                 instance_id = data.get("instance_id")
                 commit_sha = data.get("commit_sha")
+                if not commit_sha and "subset_entry" in data:
+                    subset_entry = data.get("subset_entry")
+                    if isinstance(subset_entry, dict):
+                        commit_sha = subset_entry.get("commit_sha")
                 if instance_id and commit_sha:
                     commit_map[instance_id] = commit_sha
     except FileNotFoundError:
@@ -281,6 +378,26 @@ def checkout_repo(repo_path: str, commit_sha: str) -> bool:
         subprocess.run(["git", "checkout", "-f", commit_sha], cwd=repo_path, check=True, capture_output=True)
         return True
     except subprocess.CalledProcessError as e:
+        # On Windows, checkout may return non-zero because of unlink warnings
+        # even when HEAD already moved to the target commit.
+        try:
+            verify = subprocess.run(
+                ["git", "rev-parse", "HEAD"],
+                cwd=repo_path,
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            current_head = verify.stdout.strip()
+            if current_head == commit_sha:
+                print(
+                    f"Warning: checkout returned non-zero, but HEAD already at target commit "
+                    f"{commit_sha[:12]} in {repo_path}. Continuing."
+                )
+                return True
+        except Exception:
+            pass
+
         print(f"Error checking out commit {commit_sha} in {repo_path}: {e}")
         return False
     except Exception as e:
@@ -338,110 +455,176 @@ def process_workflow(core_entities_file: str, commit_map_file: str, all_enre_rep
              open(error_report_file, "w", encoding="utf-8") as f_err, \
              open(core_entities_file, "r", encoding="utf-8") as f_in:
 
+            def write_instance_error(instance_id: str, condition: str, detail: str | None = None) -> None:
+                payload = {
+                    "instance_id": instance_id,
+                    "condition": condition,
+                }
+                if condition == "all_core_entities_not_retrieved":
+                    payload["error"] = "所有核心实体均未检索到"
+                elif condition == "retrieved_entities_without_related_code":
+                    payload["error"] = "存在核心实体被检索到，但是检索到的实体没有相关代码"
+                if detail:
+                    payload["detail"] = detail
+                f_err.write(json.dumps(payload, ensure_ascii=False) + "\n")
+
             for line in tqdm(f_in, total=total_lines, desc="Processing C++ Entities", unit="line"):
                 try:
                     instance = json.loads(line)
                 except json.JSONDecodeError:
-                    f_err.write(json.dumps({"error": "Malformed JSON line.", "line": line.strip()}) + "\n")
+                    error_msg = f"Skipping malformed JSON line in {core_entities_file}: {line.strip()}"
+                    print(f"Warning: {error_msg}")
                     continue
 
                 instance_id = instance.get("instance_id")
                 core_entities = instance.get("core_entities")
+                instance_results = []
 
                 if not instance_id:
-                    f_err.write(json.dumps({"instance_id": "unknown", "error": "Missing 'instance_id'."}) + "\n")
+                    error_msg = f"Skipping instance due to missing 'instance_id'. Instance: {instance}"
+                    print(f"Warning: {error_msg}")
                     continue
 
                 if core_entities is None or not isinstance(core_entities, list):
-                    f_err.write(json.dumps({"instance_id": instance_id, "error": "Missing 'core_entities' field."}) + "\n")
+                    error_msg = "Missing 'core_entities' field."
+                    print(f"Warning: {error_msg} Instance: {instance_id}")
+                    write_instance_error(instance_id, "all_core_entities_not_retrieved", error_msg)
                     continue
 
                 if len(core_entities) == 0:
-                    f_err.write(json.dumps({"instance_id": instance_id, "error": "'core_entities' is empty."}) + "\n")
+                    error_msg = "'core_entities' is empty."
+                    print(f"Warning: {error_msg} Instance: {instance_id}")
+                    write_instance_error(instance_id, "all_core_entities_not_retrieved", error_msg)
                     continue
 
                 commit_sha = commit_map.get(instance_id)
                 if not commit_sha:
-                    f_err.write(json.dumps({"instance_id": instance_id, "error": "Missing commit sha in commit map."}) + "\n")
+                    error_msg = f"Missing 'commit_sha' for instance_id: {instance_id} in commit map file."
+                    print(f"Warning: {error_msg}")
+                    write_instance_error(instance_id, "all_core_entities_not_retrieved", error_msg)
                     continue
 
                 parts = instance_id.split("_")
                 if len(parts) < 3:
-                    f_err.write(json.dumps({"instance_id": instance_id, "error": "Invalid instance_id format."}) + "\n")
+                    error_msg = f"Invalid instance_id format '{instance_id}'. Cannot derive project root."
+                    print(f"Warning: {error_msg}")
+                    write_instance_error(instance_id, "all_core_entities_not_retrieved", error_msg)
                     continue
 
                 repo_name = "_".join(parts[1:-1])
                 project_root = os.path.join(all_repo_dir, repo_name)
 
                 if not checkout_repo(project_root, commit_sha):
-                    f_err.write(json.dumps({"instance_id": instance_id, "error": f"Failed to checkout commit {commit_sha}."}) + "\n")
+                    error_msg = f"Failed to checkout commit {commit_sha} in {project_root}"
+                    print(f"Error: {error_msg}")
+                    write_instance_error(instance_id, "all_core_entities_not_retrieved", error_msg)
                     continue
 
                 enre_report_file = _find_enre_report(all_enre_report_dir, instance_id)
                 if not enre_report_file:
-                    f_err.write(json.dumps({"instance_id": instance_id, "error": "ENRE report not found."}) + "\n")
+                    error_msg = f"ENRE report for instance '{instance_id}' not found."
+                    print(f"Warning: {error_msg}")
+                    write_instance_error(instance_id, "all_core_entities_not_retrieved", error_msg)
                     continue
 
                 try:
                     enre_data = _load_json_with_fallback(enre_report_file)
                 except Exception as e:
-                    f_err.write(json.dumps({"instance_id": instance_id, "error": f"Failed to load ENRE report: {e}"}) + "\n")
+                    error_msg = f"Failed to load ENRE report: {e}"
+                    print(f"Error: {error_msg}")
+                    write_instance_error(instance_id, "all_core_entities_not_retrieved", error_msg)
                     continue
 
                 variables = _normalize_cpp_variables(enre_data)
+                if not variables:
+                    print(f"Warning: No variables found in ENRE report for instance '{instance_id}'.")
 
-                instance_results = []
-                valid_entity_found = False
+                supported_entities_count = 0
+                resolved_entities_count = 0
+                resolved_entities_with_code_count = 0
 
                 for entity in core_entities:
                     entity_type = str(entity.get("type", "")).lower()
                     if entity_type not in {"function", "class", "struct", "union", "template", "file", "namespace"}:
                         continue
+                    supported_entities_count += 1
 
-                    qualified_name = resolve_cpp_qualified_name(entity, variables)
-                    if not qualified_name:
-                        continue
+                    qualified_names, warning_msg = generate_cpp_qualified_names(entity, variables)
 
-                    valid_entity_found = True
-
-                    relations = analyze_cpp_enre_report(
-                        report_path=enre_report_file,
-                        target_qualified_name=qualified_name,
-                        enre_data=enre_data,
-                    )
-
-                    if not relations:
-                        continue
-
-                    augmented_relations = retrieve_code_context(
-                        entity_relations=relations[0],
-                        enre_report_path=enre_report_file,
-                        project_root=project_root,
-                    )
-
-                    if augmented_relations:
+                    if not qualified_names:
                         instance_results.append(
                             {
                                 "instance_id": instance_id,
                                 "core_entity": entity,
-                                "qualified_name": qualified_name,
-                                "retrieved_context": augmented_relations,
+                                "qualified_name": None,
+                                "retrieved_context": {},
                             }
                         )
+                        continue
+
+                    resolved_entities_count += 1
+                    entity_has_related_code = False
+
+                    for qualified_name in qualified_names:
+                        relations = analyze_cpp_enre_report(
+                            report_path=enre_report_file,
+                            target_qualified_name=qualified_name,
+                            enre_data=enre_data,
+                        )
+
+                        if not relations:
+                            instance_results.append(
+                                {
+                                    "instance_id": instance_id,
+                                    "core_entity": entity,
+                                    "qualified_name": qualified_name,
+                                    "retrieved_context": {},
+                                }
+                            )
+                            continue
+
+                        augmented_relations = retrieve_code_context(
+                            entity_relations=relations[0],
+                            enre_report_path=enre_report_file,
+                            project_root=project_root,
+                        )
+
+                        if augmented_relations:
+                            entity_has_related_code = True
+                            instance_results.append(
+                                {
+                                    "instance_id": instance_id,
+                                    "core_entity": entity,
+                                    "qualified_name": qualified_name,
+                                    "retrieved_context": augmented_relations,
+                                }
+                            )
+                        else:
+                            instance_results.append(
+                                {
+                                    "instance_id": instance_id,
+                                    "core_entity": entity,
+                                    "qualified_name": qualified_name,
+                                    "retrieved_context": {},
+                                }
+                            )
+
+                    if entity_has_related_code:
+                        resolved_entities_with_code_count += 1
 
                 if instance_results:
                     output_line = {
                         "instance_id": instance_id,
                         "retrieved_code": simplify_cpp_results(instance_results),
                     }
-                    #f_out.write(json.dumps(output_line) + "\n")
-                    12313123123
-                else:
-                    if not valid_entity_found:
-                        msg = "No valid entities found or resolved."
-                    else:
-                        msg = "Entities found but no code context retrieved."
-                    f_err.write(json.dumps({"instance_id": instance_id, "error": msg}) + "\n")
+                    f_out.write(json.dumps(output_line, ensure_ascii=False) + "\n")
+
+                if resolved_entities_count == 0:
+                    detail = f"supported_core_entities={supported_entities_count}, resolved_entities=0"
+                    write_instance_error(instance_id, "all_core_entities_not_retrieved", detail)
+                elif resolved_entities_with_code_count == 0:
+                    detail = f"resolved_entities={resolved_entities_count}, resolved_entities_with_code=0"
+                    write_instance_error(instance_id, "retrieved_entities_without_related_code", detail)
 
         print(f"Workflow complete. Results saved in: {os.path.abspath(output_file)}")
 
